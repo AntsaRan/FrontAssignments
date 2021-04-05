@@ -1,0 +1,33 @@
+<main class="container">
+    <a routerLink="/add" class="ajouterBtn">
+        <button mat-flat-button color="accent">
+            Ajouter un assignment
+        </button>
+    </a>
+    <h1>Liste des assignments</h1>
+    <mat-divider></mat-divider>
+    <div class="spinner">
+        <mat-spinner *ngIf="spinnershow" class="spinnerimg"></mat-spinner>
+    </div>
+    <div *ngIf="nodata">
+        No data to display
+    </div>
+    <mat-list *ngFor="let a of assignments">
+        <h3 mat-subheader>{{a.dateRendu | date}} </h3>
+        <nav>
+            <a routerLink="/assignment/{{a.id}}">
+                <mat-list-item>
+                    <mat-divider></mat-divider>
+                    <p *ngIf="a.rendu; else nonsoumis" appRendu>
+                        {{a.nom}}, rendu par l'élève.
+                    </p>
+                    <ng-template #nonsoumis>
+                        <p appNonRendu>
+                            {{a.nom}}, n'a pas été rendu.
+                        </p>
+                    </ng-template>
+                </mat-list-item>
+            </a>
+        </nav>
+    </mat-list>
+</main>

@@ -1,0 +1,11 @@
+form {
+    display:flex;
+    flex-direction: column;
+    margin:5px;
+  }
+  #bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  

@@ -1,0 +1,15 @@
+.container{
+    margin: 20px;
+    /*box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.301);*/
+}
+.btndelete{
+    margin-left: 10px;
+    background-color: rgb(233, 121, 121);
+    color: white;
+}
+#bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
