@@ -45,3 +45,4 @@ export class AssignmentsService {
     return this.http.delete(this.uri+"/"+assignment.id);
 }
 }
+ 
