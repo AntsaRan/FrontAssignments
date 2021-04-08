@@ -24,6 +24,7 @@ import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assi
 import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 const routes:Routes = [
   {
     path:"",
@@ -64,7 +65,7 @@ const routes:Routes = [
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule,MatDatepickerModule,
     MatNativeDateModule,MatListModule,
-    MatCardModule,MatCheckboxModule,MatProgressSpinnerModule,
+    MatCardModule,MatCheckboxModule,MatProgressSpinnerModule,MatPaginatorModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],

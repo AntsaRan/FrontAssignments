@@ -94,6 +94,21 @@
                             </div>
                             <!-- /.panel-body -->
                         </div>
+
+                        <nav>
+                        <button mat-raised-button color="primary" (click)="FirstP()" >
+                          1
+                        </button>
+                        <button mat-raised-button color="primary" (click)="Prev()" [disabled]="!hasPrevPage" >
+                            Previous
+                        </button>
+                        <button mat-raised-button [disabled]="!hasNextPage" color="primary" (click)="Next()">
+                            Next
+                        </button>
+                        <button mat-raised-button color="primary" (click)="LastP()" >
+                            {{totalPages}}
+                          </button>
+                        </nav>
                         <!-- /.panel -->
                     </div>
                     <!-- /.col-lg-12 -->
