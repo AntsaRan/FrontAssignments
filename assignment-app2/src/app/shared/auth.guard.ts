@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // return true;
 
-    return this.authService.isAdmin()
+    /*return this.authService.isAdmin()
       .then(admin => {
         if (admin) {
           console.log("autorisé");
@@ -28,6 +28,15 @@ export class AuthGuard implements CanActivate {
         }
 
       })
-  }
+  }*/
+    const currentUser = this.authService.currentUserValue;
+    if (currentUser) {
+      // logged in so return true
+      return true;
+    }
+    // not logged in so redirect to login page with the return url
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    return false;
 
+  }
 }
