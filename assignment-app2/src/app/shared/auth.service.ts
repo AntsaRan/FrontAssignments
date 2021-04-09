@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../login/user.model';
 
 
@@ -39,15 +39,24 @@ export class AuthService {
     user.username = username;
     user.password = passowrd;
     return this.http.post<any>(this.uri + "login", user)
-      .pipe(map(user => {
-        console.log(user+ "USER");
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
+      .pipe(
+        map(user => {
+        console.log(user + "user ");                  // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
-      }));
+      }),
+      catchError(this.handleError<any>('### catchError: login'))
+      );
   }
-
+  private handleError<T>(operation: any, result?: T){
+  
+    return (error:any): Observable<T> => {
+      console.log(error);
+      console.log(operation + ' a échoué' + error.message);
+      return of(result as T); 
+    }
+  }
   logOut() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
