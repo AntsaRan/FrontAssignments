@@ -1,0 +1,13 @@
+<form ngForm #loginform class="form" (submit)="onSubmit($event); loginform.reset();">
+    <mat-form-field>
+        <input matInput placeholder="Username" required [(ngModel)]="username" name="username">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Password" required [(ngModel)]="password" name="password">
+    </mat-form-field>
+
+    <button mat-stroked-button color="primary">
+        Login
+    </button>
+</form>

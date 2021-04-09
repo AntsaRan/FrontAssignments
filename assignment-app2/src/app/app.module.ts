@@ -4,13 +4,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { Routes,RouterModule,Router } from '@angular/router';
+import { Routes, RouterModule, Router } from '@angular/router';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { NonRenduDirective } from './shared/non-rendu.directive';
@@ -25,28 +25,37 @@ import { AuthGuard } from './shared/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
-const routes:Routes = [
+import { LoginComponent } from './login/login.component';
+const routes: Routes = [
   {
-    path:"",
-    component:AssignmentsComponent
+    path: "",
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:"home",
-    component:AssignmentsComponent
+    path: "home",
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:"add",
-    component:AddAssignmentComponent
+    path: "add",
+    component: AddAssignmentComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:"assignment/:id",
-    component:AssignmentDetailComponent
+    path: "assignment/:id",
+    component: AssignmentDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
-  path:"assignment/:id/edit",
-  component:EditAssignmentComponent,
-  canActivate:[AuthGuard]
-}
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "assignment/:id/edit",
+    component: EditAssignmentComponent,
+    canActivate: [AuthGuard]
+  }
 ]
 @NgModule({
   declarations: [
@@ -56,16 +65,17 @@ const routes:Routes = [
     NonRenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssignmentComponent
+    EditAssignmentComponent,
+    LoginComponent
   ],
   imports: [
-    BrowserModule,MatSlideToggleModule,
+    BrowserModule, MatSlideToggleModule,
     BrowserAnimationsModule,
-    FormsModule,HttpClientModule,
+    FormsModule, HttpClientModule,
     MatButtonModule, MatDividerModule, MatIconModule,
-    MatFormFieldModule, MatInputModule,MatDatepickerModule,
-    MatNativeDateModule,MatListModule,
-    MatCardModule,MatCheckboxModule,MatProgressSpinnerModule,MatPaginatorModule,
+    MatFormFieldModule, MatInputModule, MatDatepickerModule,
+    MatNativeDateModule, MatListModule,
+    MatCardModule, MatCheckboxModule, MatProgressSpinnerModule, MatPaginatorModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
