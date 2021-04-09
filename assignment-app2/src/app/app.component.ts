@@ -10,8 +10,16 @@ import { AuthService } from './shared/auth.service';
 })
 export class AppComponent {
   title = 'Application de gestion d\'assignments';
-
+  islogged=false;
   constructor(private authService: AuthService, private router: Router, private assignmentsService: AssignmentsService) { }
+
+  ngOnInit(): void {
+    console.log(this.authService.currentUserValue+" APPP CON");
+    if (this.authService.currentUserValue) {
+      // logged in so return true
+      this.islogged=true;
+    }
+  }
 
   login() {
     if (this.authService.loggedIn) {
