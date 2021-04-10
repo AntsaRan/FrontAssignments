@@ -12,3 +12,14 @@ align-self: flex-end;
     display: block;
     margin: auto;
 }
+.matbtn{
+    text-align: center;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    margin: 8px 8px 8px 0;
+    background-color: #639e9e;
+    color: white;
+}
