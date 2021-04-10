@@ -17,14 +17,25 @@ export class AddAssignmentComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
   constructor(private _formBuilder: FormBuilder, private assignmentsService: AssignmentsService, private router: Router) { }
+  id_eleve = null;
+  id_matiere = null;
+  note = null;
+  remarque = null;
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      nom: ['', Validators.required]
+      nom: ['', Validators.required],
+      dateRendu:['',Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      dateRendu: ['', Validators.required]
+      ideleve: ['', Validators.required],
+      idmatiere: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      note: ['', Validators.required],
+      remarque: ['', Validators.required]
     });
   }
 
@@ -33,8 +44,12 @@ export class AddAssignmentComponent implements OnInit {
       return;
     let nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.firstFormGroup.value["nom"];
-    nouvelAssignment.dateRendu = this.secondFormGroup.value["dateRendu"];
+    nouvelAssignment.dateRendu = this.firstFormGroup.value["dateRendu"];
     nouvelAssignment.rendu = false;
+    nouvelAssignment.id_eleve = this.secondFormGroup.value["ideleve"];
+    nouvelAssignment.id_matiere = this.secondFormGroup.value["idmatiere"];
+    nouvelAssignment.note = this.thirdFormGroup.value["note"];
+    nouvelAssignment.remarque = this.thirdFormGroup.value["remarque"];
     this.assignmentsService.addAssignment(nouvelAssignment)
       .subscribe(message => {
         console.log(message);

@@ -1,4 +1,3 @@
-
 <main class="container" style="width: auto;">
 
     <h1>Liste des assignments</h1>
@@ -22,14 +21,18 @@
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover"
-                                        id="dataTables-example">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
                                                 <th>Nom</th>
                                                 <th>Deadline</th>
                                                 <th>Etat</th>
+                                                <th>Id_Eleve</th>
+                                                <th>ID_Matiere</th>
+                                                <th>Note</th>
+                                                <th>Remarque</th>
+
 
                                             </tr>
                                         </thead>
@@ -44,6 +47,10 @@
                                                 <ng-template #nonsoumis>
                                                     <td appNonRendu class="center">Non Rendu</td>
                                                 </ng-template>
+                                                <td>{{a.id_eleve}}</td>
+                                                <td>{{a.id_matiere}}</td>
+                                                <td>{{a.note}}</td>
+                                                <td>{{a.remarque}}</td>
                                             </tr>
 
 
@@ -55,20 +62,20 @@
                             </div>
                             <!-- /.panel-body -->
                         </div>
-                
-                            <button class="matbtn" mat-raised-button  (click)="FirstP()">
+
+                        <button class="matbtn" mat-raised-button (click)="FirstP()">
                                 1
                             </button>
-                            <button  class="matbtn" mat-raised-button  (click)="Prev()" [disabled]="!hasPrevPage">
+                        <button class="matbtn" mat-raised-button (click)="Prev()" [disabled]="!hasPrevPage">
                                 Previous
                             </button>
-                            <button  class="matbtn" mat-raised-button [disabled]="!hasNextPage" (click)="Next()">
+                        <button class="matbtn" mat-raised-button [disabled]="!hasNextPage" (click)="Next()">
                                 Next
                             </button>
-                            <button  class="matbtn" mat-raised-button  (click)="LastP()">
+                        <button class="matbtn" mat-raised-button (click)="LastP()">
                                 {{totalPages}}
                             </button>
-                   
+
                         <!-- /.panel -->
                     </div>
                     <!-- /.col-lg-12 -->
