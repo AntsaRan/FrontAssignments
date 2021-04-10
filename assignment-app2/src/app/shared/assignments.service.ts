@@ -65,7 +65,6 @@ export class AssignmentsService {
     // pipe modifie la donnée reçu avant de la renvoyer
     .pipe(
       map(a => {
-        a.nom += " Modifié par map";
         return a;
       }),
       catchError(this.handleError<any>('### catchError: getAssignmentByID avec id='+id))

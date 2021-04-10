@@ -13,6 +13,10 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 export class AddAssignmentComponent implements OnInit {
   nom = "";
   dateRendu = null;
+  id_eleve = null;
+  id_matiere = null;
+  note = null;
+  remarque = null;
   constructor(private assignmentsService:AssignmentsService, private router:Router) { }
 
   ngOnInit(): void {
@@ -25,6 +29,10 @@ export class AddAssignmentComponent implements OnInit {
     nouvelAssignment.nom = this.nom;
     nouvelAssignment.dateRendu = this.dateRendu;
     nouvelAssignment.rendu = false;
+    nouvelAssignment.id_eleve = this.id_eleve;
+    nouvelAssignment.id_matiere = this.id_matiere;
+    nouvelAssignment.note = this.note;
+    nouvelAssignment.remarque = this.remarque;
     this.assignmentsService.addAssignment(nouvelAssignment)
     .subscribe(message => {
       console.log(message);

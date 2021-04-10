@@ -74,6 +74,34 @@
 
                                                 <mat-datepicker #picker></mat-datepicker>
                                             </mat-form-field>
+                                            <div class="form-group">
+                                                <label>Id eleve</label>
+
+                                            </div>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Entrez le'Id de l'eleve" required [(ngModel)]="id_eleve" name="id_eleve">
+                                            </mat-form-field>
+                                            <div class="form-group">
+                                                <label>Id matiere</label>
+
+                                            </div>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Entrez le'Id de la matiere" required [(ngModel)]="id_matiere" name="id_matiere">
+                                            </mat-form-field>
+                                            <div class="form-group">
+                                                <label>Note</label>
+
+                                            </div>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Entrez la note" required [(ngModel)]="note" name="note">
+                                            </mat-form-field>
+                                            <div class="form-group">
+                                                <label>Remarque</label>
+
+                                            </div>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Entrez une remarque" required [(ngModel)]="remarque" name="remarque">
+                                            </mat-form-field>
 
                                             <button mat-stroked-button color="primary" class="btn btn-primary">
                                             Ajouter un devoir

@@ -11,6 +11,10 @@ import { Assignment } from '../assignment.model';
 export class EditAssignmentComponent implements OnInit {
   nom = "";
   dateRendu = null;
+  id_eleve = null;
+  id_matiere = null;
+  note = null;
+  remarque = null;
   assignment: Assignment;
   constructor(private assignmentService: AssignmentsService,
     private route: ActivatedRoute, private router: Router) { }
@@ -24,9 +28,11 @@ export class EditAssignmentComponent implements OnInit {
     this.assignmentService.getAssignment(id)
       .subscribe(assignment => {
         this.nom = assignment.nom;
-        this.dateRendu = assignment.dateRendu;
-        this.assignment = assignment;
-
+        this.dateRendu = assignment.dateRendu;       
+        this.id_eleve = assignment.id_eleve;
+        this.id_matiere = assignment.id_matiere;
+        this.note = assignment.note;
+        this.remarque = assignment.remarque;
       })
   }
 
@@ -34,6 +40,10 @@ export class EditAssignmentComponent implements OnInit {
     if (!this.nom || !this.dateRendu) return;
     this.assignment.nom = this.nom;
     this.assignment.dateRendu = this.dateRendu;
+    this.assignment.id_eleve = this.id_eleve;
+    this.assignment.id_matiere = this.id_matiere;
+    this.assignment.note = this.note;
+    this.assignment.remarque = this.remarque;
     this.assignmentService.updateAssignment(this.assignment)
       .subscribe(m => {
         console.log(m);
