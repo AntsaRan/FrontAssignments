@@ -22,10 +22,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './shared/AuthInterceptor';
 
 const routes: Routes = [
   {
@@ -79,7 +80,9 @@ const routes: Routes = [
     MatCardModule, MatCheckboxModule, MatProgressSpinnerModule, MatPaginatorModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

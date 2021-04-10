@@ -39,7 +39,9 @@ export class AssignmentsComponent implements OnInit {
     /* if (this.assignments.length==0){
        this.nodata=true;
      }*/
-
+     const iduser = localStorage.getItem('currentUser');
+     const idToken = localStorage.getItem('currentToken');
+     console.log(idToken + " token " +iduser + " user" );
      this.route.queryParams.subscribe(queryparams =>{
       this.page =queryparams.page || 1;
       this.limit =queryparams.limit || 10;
