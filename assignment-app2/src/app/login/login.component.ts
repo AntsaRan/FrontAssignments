@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         {
           this.error=" Username or password error";
         }
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/home"],{replaceUrl:true});
       });
   }
 }
