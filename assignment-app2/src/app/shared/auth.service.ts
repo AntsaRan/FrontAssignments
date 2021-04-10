@@ -22,9 +22,11 @@ export class AuthService {
 
   uri = "http://localhost:8010/api/auth/";
   //user: User;
+
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
+
   logIn(username: string, passowrd: string) {
     //typiquement, acceptera en paramètres un login et un passowrd
     //vérifier qu'ils sont ok, et si oui, positionner la propriété loggedIn à true
@@ -41,7 +43,7 @@ export class AuthService {
     return this.http.post<any>(this.uri + "login", user)
       .pipe(
         map(user => {
-          console.log(user + "user ");                  // store user details and jwt token in local storage to keep user logged in between page refreshes
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.setSession(user);
           return user;
         }),
@@ -50,7 +52,10 @@ export class AuthService {
   }
 
   private setSession(user) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    console.log(user.token+ "user token");
+    localStorage.setItem('currentUser', JSON.stringify(user.id));
+    localStorage.setItem('currentToken', user.token);
+
     this.currentUserSubject.next(user);
   }
   private handleError<T>(operation: any, result?: T) {
@@ -67,7 +72,6 @@ export class AuthService {
     this.loggedIn = false;
   }
 
-  //isAdmin.then(admin=> {console.log("admin:" + admin );})
   isAdmin() {
     return new Promise((resolve, reject) => {
       resolve(this.admin);
