@@ -22,14 +22,14 @@ export class AppComponent {
       this.islogged=true;    }
   }
 
-  login() {
+ /* login() {
     if (this.authService.loggedIn) {
       this.authService.logOut();
       this.router.navigate(["/home"]);
     } else {
       this.authService.logIn("admin", "toto");
     }
-  }
+  }*/
   peuplerbase() {
     //this.assignmentsService.peuplerBD();
     this.assignmentsService.peuplerBDavecForkJoin()
@@ -37,5 +37,9 @@ export class AppComponent {
         console.log("la bd a été peuplée");
         this.router.navigate(["/home"], { replaceUrl: true });
       })
+  }
+  logout(){
+    this.islogged=false;  
+    this.authService.logOut();
   }
 }

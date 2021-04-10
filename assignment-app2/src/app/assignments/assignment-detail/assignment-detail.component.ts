@@ -64,7 +64,12 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   isAdmin(){
-     return this.authservice.admin;
+    const isadmin = localStorage.getItem('isadmin');
+    var isADMIN:boolean=false;
+    console.log(isadmin + " isadmin");
+    if(isadmin==="false") return isADMIN;
+    return true;
+   
   }
 
 }

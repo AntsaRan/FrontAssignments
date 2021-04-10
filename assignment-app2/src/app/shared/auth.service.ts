@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Token } from '@angular/compiler/src/ml_parser/lexer';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from '../login/user.model';
@@ -15,7 +16,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -28,15 +29,6 @@ export class AuthService {
   }
 
   logIn(username: string, passowrd: string) {
-    //typiquement, acceptera en paramètres un login et un passowrd
-    //vérifier qu'ils sont ok, et si oui, positionner la propriété loggedIn à true
-    //sinon positionner à false
-
-    /*if (login === "admin")
-      this.admin = true;
-
-    this.loggedIn = true;
-*/
     let user = new User();
     user.username = username;
     user.password = passowrd;
@@ -55,7 +47,7 @@ export class AuthService {
     console.log(user.token+ "user token");
     localStorage.setItem('currentUser', JSON.stringify(user.id));
     localStorage.setItem('currentToken', user.token);
-
+    localStorage.setItem('isadmin', user.isadmin);
     this.currentUserSubject.next(user);
   }
   private handleError<T>(operation: any, result?: T) {
@@ -68,8 +60,11 @@ export class AuthService {
   }
   logOut() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentToken');
+    localStorage.removeItem('isadmin');
     this.currentUserSubject.next(null);
-    this.loggedIn = false;
+    console.log(this.currentUserSubject.value+ " CUREERZER ZERZEAR");
+    this.router.navigate(['/login']);
   }
 
   isAdmin() {

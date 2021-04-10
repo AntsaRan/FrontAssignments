@@ -7,7 +7,7 @@
                 Rendu
             </mat-checkbox>
             <button [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onclickEdit()">Edit</button>
-            <button mat-stroked-button class="btndelete" (click)="deleteAssignment()">Supprimer</button>
+            <button [disabled]="!isAdmin()" mat-stroked-button class="btndelete" (click)="deleteAssignment()">Supprimer</button>
         </div>
     </mat-card>
 </div>
