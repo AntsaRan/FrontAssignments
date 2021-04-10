@@ -17,9 +17,9 @@ export class AppComponent {
 
   ngOnInit(): void {
     console.log(this.authService.currentUserValue+" APPP CON");
-   /* if (this.authService.currentUserValue) {
+    if (this.authService.currentUserValue) {
       // logged in so return true
-      this.islogged=true;    }*/
+      this.islogged=true;    }
   }
 
   login() {
