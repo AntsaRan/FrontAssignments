@@ -27,7 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './shared/AuthInterceptor';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatStepperModule} from '@angular/material/stepper';
 const routes: Routes = [
   {
     path: "",
@@ -73,8 +74,8 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule, MatSlideToggleModule,
-    BrowserAnimationsModule,
-    FormsModule, HttpClientModule,
+    BrowserAnimationsModule,ReactiveFormsModule,
+    FormsModule, HttpClientModule,MatStepperModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule,
