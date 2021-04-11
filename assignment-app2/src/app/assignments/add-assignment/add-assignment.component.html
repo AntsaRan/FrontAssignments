@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Nouvel Assignement</h1>
+                    <h1 class="page-header">Nouvel Assignment</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -35,13 +35,13 @@
                                                     <mat-datepicker #picker></mat-datepicker>
                                                 </mat-form-field>
                                                 <div>
-                                                    <button mat-button matStepperNext>Next</button>
+                                                    <button class="matbtn" mat-button matStepperNext>Next</button>
                                                 </div>
                                             </form>
                                         </mat-step>
                                         <mat-step [stepControl]="secondFormGroup" label="Matière et élève">
                                             <form [formGroup]="secondFormGroup">
-                                                <ng-template matStepLabel>Id eleve</ng-template>
+                                                <ng-template matStepLabel>Elève et matière</ng-template>
                                                 <mat-form-field>
                                                     <mat-label>Id eleve</mat-label>
                                                     <input matInput placeholder="Id eleve" formControlName="ideleve"
@@ -53,8 +53,8 @@
                                                         required>
                                                 </mat-form-field>
                                                 <div>
-                                                    <button mat-button matStepperPrevious>Back</button>
-                                                    <button mat-button matStepperNext>Next</button>
+                                                    <button class="matbtn" mat-button matStepperPrevious>Back</button>
+                                                    <button class="matbtn" mat-button matStepperNext>Next</button>
                                                 </div>
                                             </form>
                                         </mat-step>
@@ -67,12 +67,11 @@
                                                 </mat-form-field>
                                                 <mat-form-field>
                                                     <mat-label>Remarque</mat-label>
-                                                    <input matInput placeholder="Remarque" formControlName="remarque"
-                                                        required>
+                                                    <input matInput placeholder="Remarque" formControlName="remarque">
                                                 </mat-form-field>
                                                 <div>
-                                                    <button mat-button matStepperPrevious>Back</button>
-                                                    <button mat-button matStepperNext>Next</button>
+                                                    <button class="matbtn" mat-button matStepperPrevious>Back</button>
+                                                    <button class="matbtn" mat-button matStepperNext>Next</button>
                                                 </div>
                                             </form>
                                         </mat-step>
@@ -80,13 +79,15 @@
                                         <mat-step>
                                             <ng-template matStepLabel>Ajouter un devoir</ng-template>
                                             <div>
-                                                <button mat-button matStepperPrevious>Back</button>
-                                                <button mat-button (click)="stepper.reset()">Reset</button>
-                                                <button mat-button (click)="onSubmit($event)">Submit</button>
+                                                <button class="matbtn" mat-button matStepperPrevious>Back</button>
+                                                <button class="matbtn" mat-button
+                                                    (click)="stepper.reset()">Reset</button>
+                                                <button class="matSubmit" mat-button
+                                                    (click)="onSubmit($event)">Submit</button>
                                             </div>
                                         </mat-step>
                                     </mat-horizontal-stepper>
-
+                                    <p class="errortext">{{error}}</p>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
 

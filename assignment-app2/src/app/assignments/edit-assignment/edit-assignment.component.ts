@@ -9,6 +9,7 @@ import { Assignment } from '../assignment.model';
   styleUrls: ['./edit-assignment.component.css']
 })
 export class EditAssignmentComponent implements OnInit {
+  id=null;
   nom = "";
   dateRendu = null;
   id_eleve = null;
@@ -25,8 +26,10 @@ export class EditAssignmentComponent implements OnInit {
 
   getAssignementById() {
     const id: number = + this.route.snapshot.params.id;
+    console.log(id+ " IIIIIIIIIIIID");
     this.assignmentService.getAssignment(id)
       .subscribe(assignment => {
+        this.id=assignment._id;
         this.nom = assignment.nom;
         this.dateRendu = assignment.dateRendu;       
         this.id_eleve = assignment.id_eleve;
@@ -37,7 +40,10 @@ export class EditAssignmentComponent implements OnInit {
   }
 
   onSubmit(event) {
+    console.log(this.nom + " nom ");
     if (!this.nom || !this.dateRendu) return;
+    this.assignment=new Assignment();
+    this.assignment._id=this.id;
     this.assignment.nom = this.nom;
     this.assignment.dateRendu = this.dateRendu;
     this.assignment.id_eleve = this.id_eleve;

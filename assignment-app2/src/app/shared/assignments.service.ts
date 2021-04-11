@@ -39,7 +39,7 @@ export class AssignmentsService {
       })
     })
   }
-
+ 
   peuplerBDavecForkJoin():Observable<any> {
     const appelsversAddAssignment = [];
 
@@ -65,6 +65,7 @@ export class AssignmentsService {
     // pipe modifie la donnée reçu avant de la renvoyer
     .pipe(
       map(a => {
+        console.log(a._id+ " ___id");
         return a;
       }),
       catchError(this.handleError<any>('### catchError: getAssignmentByID avec id='+id))
@@ -95,6 +96,7 @@ export class AssignmentsService {
   }
 
   updateAssignment(assignment:Assignment):Observable<any>{
+    console.log(assignment.id + " ID update");
     return this.http.put(this.uri,assignment);  
   }
 

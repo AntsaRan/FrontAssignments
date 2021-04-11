@@ -27,3 +27,9 @@
     background-image: url(./assets/img/494.jpg);
     background-size: cover;
 }
+.searchbtn{
+    color: #fff;
+    background-color: #5b8989;
+    border-color: #5b8989;
+
+}

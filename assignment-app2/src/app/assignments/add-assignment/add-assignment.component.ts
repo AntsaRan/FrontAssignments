@@ -23,7 +23,7 @@ export class AddAssignmentComponent implements OnInit {
   id_matiere = null;
   note = null;
   remarque = null;
-
+  error ="";
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
       nom: ['', Validators.required],
@@ -35,13 +35,20 @@ export class AddAssignmentComponent implements OnInit {
     });
     this.thirdFormGroup = this._formBuilder.group({
       note: ['', Validators.required],
-      remarque: ['', Validators.required]
+      remarque: ['']
     });
   }
 
   onSubmit(event) {
-    if ( !this.firstFormGroup.value["nom"] || !this.secondFormGroup.value["dateRendu"])
+
+    if ( !this.firstFormGroup.value["nom"] 
+    || !this.firstFormGroup.value["dateRendu"]
+    || !this.secondFormGroup.value["ideleve"]
+    || !this.secondFormGroup.value["idmatiere"]
+    || !this.thirdFormGroup.value["note"]) {
+      this.error="Renseignez tous les champs obligatoires";
       return;
+    }
     let nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.firstFormGroup.value["nom"];
     nouvelAssignment.dateRendu = this.firstFormGroup.value["dateRendu"];
