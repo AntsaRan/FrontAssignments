@@ -4,6 +4,8 @@ import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/dialog/dialog.component';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -14,10 +16,10 @@ export class AssignmentDetailComponent implements OnInit {
   @Output() assignDeleteEmit = new EventEmitter<Assignment>();
   assignmentTransmis: Assignment;
 
-  constructor(private assignmentService: AssignmentsService,
-    private route: ActivatedRoute, 
+  constructor(public dialog: MatDialog, private assignmentService: AssignmentsService,
+    private route: ActivatedRoute,
     private router: Router,
-    private authservice:AuthService) { }
+    private authservice: AuthService) { }
 
   ngOnInit(): void {
     this.getAssignementById();
@@ -28,7 +30,6 @@ export class AssignmentDetailComponent implements OnInit {
     console.log(id + " id")
     this.assignmentService.getAssignment(id)
       .subscribe(assignment => {
-        console.log(assignment.nom + " nom");
         this.assignmentTransmis = assignment;
       })
   }
@@ -43,34 +44,45 @@ export class AssignmentDetailComponent implements OnInit {
     //this.assignmentTransmis = null;*/
   }
   deleteAssignment() {
-    this.assignmentService.deleteAssignment(this.assignmentTransmis)
-      .subscribe(message => {
-        console.log(message+ " MESSAGE");
-        this.assignmentTransmis = null;
-        this.router.navigate(["/home"]);
-      })
-    //  this.assignDeleteEmit.emit(this.assignmentTransmis);  
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {
+      id: this.assignmentTransmis.id,
+    };
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data => {
+        console.log("Dialog output:", data);
+        if (data) {
+          this.assignmentService.deleteAssignment(this.assignmentTransmis)
+            .subscribe(message => {
+              this.assignmentTransmis = null;
+              this.router.navigate(["/home"]);
+            })
+        }
+      }
+    );
   }
 
-  onclickEdit(){
+  onclickEdit() {
     console.log(this.assignmentTransmis.id);
-    this.router.navigate(["/assignment",this.assignmentTransmis.id,"edit"],
-    {
-      queryParams:{
-        nom:'Antsa',
-        metier:'Dév',
-      },
-      fragment:"edition"
-    });
+    this.router.navigate(["/assignment", this.assignmentTransmis.id, "edit"],
+      {
+        queryParams: {
+          nom: 'Antsa',
+          metier: 'Dév',
+        },
+        fragment: "edition"
+      });
   }
 
-  isAdmin(){
+  isAdmin() {
     const isadmin = localStorage.getItem('isadmin');
-    var isADMIN:boolean=false;
-    console.log(isadmin + " isadmin");
-    if(isadmin==="false") return isADMIN;
+    var isADMIN: boolean = false;
+    if (isadmin === "false") return isADMIN;
     return true;
-   
+
   }
 
 }

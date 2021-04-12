@@ -29,6 +29,9 @@ import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './shared/AuthInterceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
+
 const routes: Routes = [
   {
     path: "",
@@ -70,21 +73,24 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule, MatSlideToggleModule,
     BrowserAnimationsModule,ReactiveFormsModule,
     FormsModule, HttpClientModule,MatStepperModule,
-    MatButtonModule, MatDividerModule, MatIconModule,
+    MatButtonModule, MatDividerModule, MatIconModule, 
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
-    MatNativeDateModule, MatListModule,
+    MatNativeDateModule, MatListModule,MatDialogModule,
     MatCardModule, MatCheckboxModule, MatProgressSpinnerModule, MatPaginatorModule,
     RouterModule.forRoot(routes)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
+
 })
 export class AppModule { }

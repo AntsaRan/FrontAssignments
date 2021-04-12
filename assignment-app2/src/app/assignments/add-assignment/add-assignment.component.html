@@ -42,16 +42,18 @@
                                         <mat-step [stepControl]="secondFormGroup" label="Matière et élève">
                                             <form [formGroup]="secondFormGroup">
                                                 <ng-template matStepLabel>Elève et matière</ng-template>
-                                                <mat-form-field>
-                                                    <mat-label>Id eleve</mat-label>
-                                                    <input matInput placeholder="Id eleve" formControlName="ideleve"
-                                                        required>
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>Eleves</mat-label>
+                                                    <mat-select  formControlName="ideleve">
+                                                        <mat-option *ngFor="let a of listEleves" [value]="a.id">{{a.nom}}</mat-option>
+                                                    </mat-select>
                                                 </mat-form-field>
-                                                <mat-form-field>
-                                                    <mat-label>Id matiere</mat-label>
-                                                    <input matInput placeholder="Id matiere" formControlName="idmatiere"
-                                                        required>
-                                                </mat-form-field>
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>Matières</mat-label>
+                                                    <mat-select  formControlName="idmatiere">
+                                                        <mat-option *ngFor="let a of listMatieres" [value]="a.id">{{a.nom}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>              
                                                 <div>
                                                     <button class="matbtn" mat-button matStepperPrevious>Back</button>
                                                     <button class="matbtn" mat-button matStepperNext>Next</button>

@@ -5,6 +5,10 @@ import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Eleve } from 'src/app/shared/model/eleve.model';
+import { Matiere } from 'src/app/shared/model/matiere.model';
+import { ElevesService } from 'src/app/shared/eleves.service';
+import { MatieresService } from 'src/app/shared/matieres.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -15,19 +19,31 @@ export class AddAssignmentComponent implements OnInit {
   nom = "";
   dateRendu = null;
   isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup: FormGroup;
-  constructor(private _formBuilder: FormBuilder, private assignmentsService: AssignmentsService, private router: Router) { }
   id_eleve = null;
   id_matiere = null;
   note = null;
   remarque = null;
-  error ="";
+  error = "";
+  /* FORM RELATED VAR */
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
+  /* LISTS */
+  listEleves: Eleve[];
+  listMatieres: Matiere[];
+
+  constructor(private _formBuilder: FormBuilder,
+    private eleveService: ElevesService,
+    private assignmentsService: AssignmentsService,
+    private router: Router,
+    private matiereService:MatieresService) { }
+
   ngOnInit(): void {
+
     this.firstFormGroup = this._formBuilder.group({
       nom: ['', Validators.required],
-      dateRendu:['',Validators.required]
+      dateRendu: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       ideleve: ['', Validators.required],
@@ -37,16 +53,31 @@ export class AddAssignmentComponent implements OnInit {
       note: ['', Validators.required],
       remarque: ['']
     });
+
+    this.getEleves();
+  }
+  getEleves() {
+    this.eleveService.getEleves()
+      .subscribe(data => {
+        this.listEleves = data;
+      });
+  }
+
+  getMatieres(){
+    this.matiereService.getMatieres()
+    .subscribe(data => {
+      this.listMatieres = data;
+    });
   }
 
   onSubmit(event) {
 
-    if ( !this.firstFormGroup.value["nom"] 
-    || !this.firstFormGroup.value["dateRendu"]
-    || !this.secondFormGroup.value["ideleve"]
-    || !this.secondFormGroup.value["idmatiere"]
-    || !this.thirdFormGroup.value["note"]) {
-      this.error="Renseignez tous les champs obligatoires";
+    if (!this.firstFormGroup.value["nom"]
+      || !this.firstFormGroup.value["dateRendu"]
+      || !this.secondFormGroup.value["ideleve"]
+      || !this.secondFormGroup.value["idmatiere"]
+      || !this.thirdFormGroup.value["note"]) {
+      this.error = "Renseignez tous les champs obligatoires";
       return;
     }
     let nouvelAssignment = new Assignment();

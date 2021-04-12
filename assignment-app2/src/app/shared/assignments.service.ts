@@ -96,12 +96,13 @@ export class AssignmentsService {
   }
 
   updateAssignment(assignment:Assignment):Observable<any>{
-    console.log(assignment.id + " ID update");
+    //console.log(assignment.id + " ID update");
     return this.http.put(this.uri,assignment);  
   }
 
   deleteAssignment(assignment:Assignment):Observable<any>{
-    return this.http.delete(this.uri+"/"+assignment._id);
+    console.log(assignment._id+" ID DELETE");
+    return this.http.delete(this.uri+'/'+assignment._id);
   }
 }
  
