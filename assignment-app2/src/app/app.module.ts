@@ -31,6 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
+import { MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -77,7 +78,7 @@ const routes: Routes = [
     DialogComponent
   ],
   imports: [
-    BrowserModule, MatSlideToggleModule,
+    BrowserModule, MatSlideToggleModule,MatSelectModule,
     BrowserAnimationsModule,ReactiveFormsModule,
     FormsModule, HttpClientModule,MatStepperModule,
     MatButtonModule, MatDividerModule, MatIconModule, 
