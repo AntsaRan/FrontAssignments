@@ -45,13 +45,13 @@
                                                 <mat-form-field appearance="fill">
                                                     <mat-label>Eleves</mat-label>
                                                     <mat-select  formControlName="ideleve">
-                                                        <mat-option *ngFor="let a of listEleves" [value]="a.id">{{a.nom}}</mat-option>
+                                                        <mat-option *ngFor="let a of listEleves" [value]="a._id">{{a.nom}}</mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
                                                 <mat-form-field appearance="fill">
                                                     <mat-label>Matières</mat-label>
                                                     <mat-select  formControlName="idmatiere">
-                                                        <mat-option *ngFor="let a of listMatieres" [value]="a.id">{{a.nom}}</mat-option>
+                                                        <mat-option *ngFor="let a of listMatieres" [value]="a._id">{{a.nom}}</mat-option>
                                                     </mat-select>
                                                 </mat-form-field>              
                                                 <div>

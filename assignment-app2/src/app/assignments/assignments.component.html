@@ -46,11 +46,11 @@
                                                 <ng-template #nonsoumis>
                                                     <td appNonRendu class="center">Non Rendu</td>
                                                 </ng-template>
-                                                <td *ngIf="a.id_eleve;else noeleve">{{a.id_eleve.nom}}</td>
+                                                <td>{{a.id_eleve.nom}}</td>
                                                 <ng-template #noeleve>
                                                     <td class="">Non eleve</td>
                                                 </ng-template>
-                                                <td>{{a.id_matiere}}</td>
+                                                <td>{{a.id_matiere.nom}}</td>
                                                 <td>{{a.note}}</td>
                                                 <td>{{a.remarque}}</td>
                                             </tr> 

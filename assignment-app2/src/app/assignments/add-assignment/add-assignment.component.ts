@@ -37,7 +37,7 @@ export class AddAssignmentComponent implements OnInit {
     private eleveService: ElevesService,
     private assignmentsService: AssignmentsService,
     private router: Router,
-    private matiereService:MatieresService) { }
+    private matiereService: MatieresService) { }
 
   ngOnInit(): void {
 
@@ -50,10 +50,10 @@ export class AddAssignmentComponent implements OnInit {
       idmatiere: ['', Validators.required]
     });
     this.thirdFormGroup = this._formBuilder.group({
-      note: ['', Validators.required],
+      note: [''],
       remarque: ['']
     });
-
+    this.getMatieres();
     this.getEleves();
   }
   getEleves() {
@@ -63,11 +63,11 @@ export class AddAssignmentComponent implements OnInit {
       });
   }
 
-  getMatieres(){
+  getMatieres() {
     this.matiereService.getMatieres()
-    .subscribe(data => {
-      this.listMatieres = data;
-    });
+      .subscribe(data => {
+        this.listMatieres = data;
+      });
   }
 
   onSubmit(event) {
@@ -75,8 +75,7 @@ export class AddAssignmentComponent implements OnInit {
     if (!this.firstFormGroup.value["nom"]
       || !this.firstFormGroup.value["dateRendu"]
       || !this.secondFormGroup.value["ideleve"]
-      || !this.secondFormGroup.value["idmatiere"]
-      || !this.thirdFormGroup.value["note"]) {
+      || !this.secondFormGroup.value["idmatiere"]) {
       this.error = "Renseignez tous les champs obligatoires";
       return;
     }

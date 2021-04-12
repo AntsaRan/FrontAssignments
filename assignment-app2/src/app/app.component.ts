@@ -30,14 +30,14 @@ export class AppComponent {
       this.authService.logIn("admin", "toto");
     }
   }*/
-  peuplerbase() {
+ /* peuplerbase() {
     //this.assignmentsService.peuplerBD();
     this.assignmentsService.peuplerBDavecForkJoin()
       .subscribe(() => {
         console.log("la bd a été peuplée");
         this.router.navigate(["/home"], { replaceUrl: true });
       })
-  }
+  }*/
   logout(){
     this.islogged=false;  
     this.authService.logOut();

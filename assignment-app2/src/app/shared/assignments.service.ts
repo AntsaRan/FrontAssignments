@@ -5,7 +5,6 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { HttpClient,HttpHeaders  } from '@angular/common/http';
-import { bdInitialAssignments } from './data/data';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,7 @@ export class AssignmentsService {
   getAssignmentsPagine(page:number,limit:number):Observable<any>{
     return this.http.get<Assignment[]>(this.uri+"?page="+page+"&limit="+limit);
   }
-  peuplerBD() {
+ /* peuplerBD() {
     let i =1;
     bdInitialAssignments.forEach(a => {
       
@@ -55,7 +54,7 @@ export class AssignmentsService {
     return forkJoin(appelsversAddAssignment);
   }
   
-  
+  */
   getAssignment(id:number): Observable<Assignment> {
    /* console.log(id + "id serv")
     let assignmentSearch = this.assignments.find(a =>a.id===id);
