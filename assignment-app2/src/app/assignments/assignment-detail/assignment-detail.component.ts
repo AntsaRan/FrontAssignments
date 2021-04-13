@@ -6,6 +6,11 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/dialog/dialog.component';
+import { Prof } from 'src/app/shared/model/prof.model';
+import { ProfService } from 'src/app/shared/prof.service';
+import { MatieresService } from 'src/app/shared/matieres.service';
+import { Matiere } from 'src/app/shared/model/matiere.model';
+
 
 @Component({
   selector: 'app-assignment-detail',
@@ -14,16 +19,24 @@ import { DialogComponent } from 'src/app/dialog/dialog.component';
 })
 export class AssignmentDetailComponent implements OnInit {
   @Output() assignDeleteEmit = new EventEmitter<Assignment>();
+  imgUrl:string ="../../../assets/img/";
+  imgProf:string ="";
   assignmentTransmis: Assignment;
+  matiereTransmis: Matiere;
+  profTransmis: Prof;
+
 
   constructor(public dialog: MatDialog, 
     private assignmentService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authservice: AuthService) { }
+    private authservice: AuthService,
+    private profService :ProfService ,
+    private matiereService : MatieresService) { }
 
   ngOnInit(): void {
     this.getAssignementById();
+    
   }
 
   getAssignementById() {
@@ -32,6 +45,26 @@ export class AssignmentDetailComponent implements OnInit {
     this.assignmentService.getAssignment(id)
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
+        console.log(assignment.id_matiere['id']+ " ITO ILAY ID ANLAY MATIERE");
+        this.getMatiereByID(assignment.id_matiere['id']);
+        this.getProfbyIdMatiere(assignment.id_matiere['id']);
+      })
+  }
+  getMatiereByID(id) {
+    console.log(id + " id MAtiere dans TS");
+    this.matiereService.getMatiere(id)
+      .subscribe(assign => {
+        this.matiereTransmis = assign;
+        //console.log("VALINY "+this.profTransmis.nom);
+      })
+  }
+
+  getProfbyIdMatiere(idProf) {
+    console.log(idProf + " idProf dans TS");
+    this.profService.getProf(idProf)
+      .subscribe(prof => {
+        this.profTransmis = prof;
+        //console.log("VALINY "+this.profTransmis.nom);
       })
   }
   onAssignmentRendu() {

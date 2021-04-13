@@ -2,7 +2,7 @@
     <div class="row">
         <mat-card *ngIf="assignmentTransmis" class="matheight">
             <mat-card-header>
-                <div mat-card-avatar class="example-header-image "></div>
+                <div><img src="{{imgUrl}}{{matiereTransmis.image}}" alt="{{matiereTransmis.nom}}" width="40" height="40"></div>
                 <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
             </mat-card-header>
             <div class="col-lg-6">
@@ -34,16 +34,13 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <img mat-card-image class="imgcard" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                    alt="Photo of a Shiba Inu">
+                <img mat-card-image class="imgcard" src="{{imgUrl}}{{profTransmis.image}}" alt="Photo of a Shiba Inu">
             </div>
 
         </mat-card>
         <div id="bottom">
-            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button color="primary"
-                (click)="onclickEdit()">Edit</button>
-            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button class="btndelete"
-                (click)="deleteAssignment()">Supprimer</button>
+            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onclickEdit()">Edit</button>
+            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button class="btndelete" (click)="deleteAssignment()">Supprimer</button>
         </div>
     </div>
 </div>
