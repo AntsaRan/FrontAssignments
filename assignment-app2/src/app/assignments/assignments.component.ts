@@ -24,6 +24,7 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number;
   pageSizeOptions: number[] = [5, 10, 25];
   limit: number;
+  imageUrl :string ="../../assets/img/";
 
   //injection service
   constructor(private assignmentsService: AssignmentsService,
