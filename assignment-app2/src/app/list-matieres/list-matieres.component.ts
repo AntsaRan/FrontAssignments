@@ -13,7 +13,14 @@ import { Matiere } from '../shared/model/matiere.model';
 export class ListMatieresComponent implements OnInit {
   matieres: Matiere[];
   spinnershow = true;
-
+  page: number = 1;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  nextPage: number;
+  prevPage: number;
+  pageSizeOptions: number[] = [5, 10, 25];
+  limit: number;
   constructor(private matiereservice: MatieresService,
     private route: ActivatedRoute,
     private router: Router) { }
@@ -28,4 +35,52 @@ export class ListMatieresComponent implements OnInit {
         this.spinnershow = false;
       });
   }
+  Prev() {
+    /*  this.page = this.prevPage;
+      this.getAssignments();*/
+      this.router.navigate(["/home"],
+      {
+        queryParams: {
+          page: this.prevPage,
+          limit: this.limit,
+        },
+      });
+  
+    }
+  
+    Next() {
+      /*
+      this.page=this.nextPage;
+      this.getAssignments();
+  */
+      this.router.navigate(["/home"],
+        {
+          queryParams: {
+            page: this.nextPage,
+            limit: this.limit,
+          },
+        });
+    }
+    FirstP() {
+      /*this.page = 1;
+      this.getAssignments();*/
+      this.router.navigate(["/home"],
+      {
+        queryParams: {
+          page: 1,
+          limit: this.limit,
+        },
+      });
+    }
+    LastP() {
+      /*this.page = this.totalPages;
+      this.getAssignments();*/
+      this.router.navigate(["/home"],
+      {
+        queryParams: {
+          page: this.totalPages,
+          limit: this.limit,
+        },
+      });
+    }
 }

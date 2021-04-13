@@ -38,7 +38,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ListElevesComponent } from './list-eleves/list-eleves.component';
 import { ListMatieresComponent } from './list-matieres/list-matieres.component';
 import { ListProfsComponent } from './list-profs/list-profs.component';
-
+import { NotationComponent } from './shared/notation/notation.component';
+import { AnnulationRenduComponent } from './shared/annulation-rendu/annulation-rendu.component';
 const routes: Routes = [
   {
     path: "",
@@ -71,7 +72,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: "search/:search",
+    path: "search",
     component: SearchComponent,
   },
   {
@@ -101,13 +102,15 @@ const routes: Routes = [
     SearchComponent,
     ListElevesComponent,
     ListMatieresComponent,
-    ListProfsComponent
+    ListProfsComponent,
+    NotationComponent,
+    AnnulationRenduComponent
   ],
   imports: [
     BrowserModule, MatSlideToggleModule,MatSelectModule,
     BrowserAnimationsModule,ReactiveFormsModule,DragDropModule,
     FormsModule, HttpClientModule,MatStepperModule,
-    MatButtonModule, MatDividerModule, MatIconModule, 
+    MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule,MatDialogModule,MatTabsModule,
     MatCardModule, MatCheckboxModule, MatProgressSpinnerModule, MatPaginatorModule,
@@ -117,7 +120,7 @@ const routes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent,NotationComponent,AnnulationRenduComponent]
 
 })
 export class AppModule { }

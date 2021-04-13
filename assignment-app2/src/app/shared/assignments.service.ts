@@ -35,7 +35,6 @@ export class AssignmentsService {
     return this.http.get<Assignment>(this.uri+"/"+id)
     .pipe(
       map(a => {
-        console.log(a._id+ " ___id");
         return a;
       }),
       catchError(this.handleError<any>('### catchError: getAssignmentByID avec id='+id))
@@ -66,7 +65,7 @@ export class AssignmentsService {
   }
 
   updateAssignment(assignment:Assignment):Observable<any>{
-    //console.log(assignment.id + " ID update");
+    console.log(assignment._id + " ID update");
     return this.http.put(this.uri,assignment);  
   }
 

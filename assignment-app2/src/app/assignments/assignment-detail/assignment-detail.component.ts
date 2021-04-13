@@ -16,7 +16,8 @@ export class AssignmentDetailComponent implements OnInit {
   @Output() assignDeleteEmit = new EventEmitter<Assignment>();
   assignmentTransmis: Assignment;
 
-  constructor(public dialog: MatDialog, private assignmentService: AssignmentsService,
+  constructor(public dialog: MatDialog, 
+    private assignmentService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
     private authservice: AuthService) { }
@@ -53,7 +54,6 @@ export class AssignmentDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       data => {
-        console.log("Dialog output:", data);
         if (data) {
           this.assignmentService.deleteAssignment(this.assignmentTransmis)
             .subscribe(message => {

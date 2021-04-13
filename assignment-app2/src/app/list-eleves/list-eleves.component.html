@@ -30,22 +30,23 @@
                                                 <td>{{a.nom}}</td>              
                                             </tr>
                                         </tbody>
-                                        <button class="matbtn" mat-raised-button (click)="FirstP()">
-                                            1
-                                        </button>
-                                        <button class="matbtn" mat-raised-button (click)="Prev()"
-                                            [disabled]="!hasPrevPage">
-                                            Previous
-                                        </button>
-                                        <button class="matbtn" mat-raised-button [disabled]="!hasNextPage"
-                                            (click)="Next()">
-                                            Next
-                                        </button>
-                                        <button *ngIf="totalPages>1" class="matbtn" mat-raised-button (click)="LastP()">
-                                            {{totalPages}}
-                                        </button>
+                                
 
                                     </table>
+                                    <button class="matbtn" mat-raised-button (click)="FirstP()">
+                                        1
+                                    </button>
+                                    <button class="matbtn" mat-raised-button (click)="Prev()"
+                                        [disabled]="!hasPrevPage">
+                                        Previous
+                                    </button>
+                                    <button class="matbtn" mat-raised-button [disabled]="!hasNextPage"
+                                        (click)="Next()">
+                                        Next
+                                    </button>
+                                    <button *ngIf="totalPages>1" class="matbtn" mat-raised-button (click)="LastP()">
+                                        {{totalPages}}
+                                    </button>
                                 </div>
                                 <!-- /.table-responsive -->
 
