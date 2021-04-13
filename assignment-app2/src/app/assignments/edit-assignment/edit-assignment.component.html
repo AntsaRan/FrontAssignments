@@ -1,34 +1,49 @@
-<h2>Modification</h2>
-<form ngForm #formAssignment class="form" (submit)="onSubmit($event);formAssignment.reset();">
-    <mat-form-field>
-        <input matInput placeholder="Nom du devoir" [(ngModel)]="nom" name="nom" required>
-    </mat-form-field>
+<div class="col-lg-6">
+    <h2>Modification</h2>
+    <form ngForm #formAssignment class="form" (submit)="onSubmit($event);">
+        <mat-form-field>
+            <input matInput placeholder="Nom du devoir" [(ngModel)]="nom" name="nom" required>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="dateRendu" name="dateRendu" required>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="dateRendu" name="dateRendu" required>
 
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput placeholder="Id Eleve" [(ngModel)]="id_eleve" name="id_eleve" required>
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Valeur élève actuelle" [(ngModel)]="id_eleve" name="id_eleve" disabled>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput placeholder="ID Matiere" [(ngModel)]="id_matiere" name="id_matiere" required>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Eleves</mat-label>
+            <mat-select  [(ngModel)]="id_eleve_new" name="id_eleve_new" required >
+                <mat-option *ngFor="let a of listEleves" [value]="a._id">{{a.nom}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput placeholder="Note" [(ngModel)]="note" name="note" required>
-    </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Valeur matière" [(ngModel)]="id_matiere" name="id_matiere" disabled>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput placeholder="Remarque" [(ngModel)]="remarque" name="remarque" required>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Matières</mat-label>
+            <mat-select [(ngModel)]="id_matiere_new" name="id_matiere_new" required>
+                <mat-option *ngFor="let a of listMatieres" [value]="a._id">{{a.nom}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Note" [(ngModel)]="note" name="note" >
+        </mat-form-field>
 
-    <button mat-stroked-button color="primary">
-        Modifier un devoir
-    </button>
-</form>
+        <mat-form-field>
+            <input matInput placeholder="Remarque" [(ngModel)]="remarque" name="remarque" >
+        </mat-form-field>
+        <p class="errortext">{{error}}</p>
+        <button class="matbn" mat-stroked-button color="primary">
+            Modifier un devoir
+        </button>
+    </form>
+</div>

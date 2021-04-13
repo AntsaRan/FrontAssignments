@@ -10,10 +10,18 @@ import { HttpClient,HttpHeaders  } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AssignmentsService {
+
+
+
   assignments: Assignment[];
   constructor(private loggingservice:LoggingService,private http:HttpClient) { } 
   uri = "http://localhost:8010/api/assignments";
 
+  getAssignmentbyname(page:number,limit:number,searchval: string):Observable<any> {
+   // return this.http.get<Assignment>(this.uri+"/search/"+searchval);
+   console.log("searchval "+ searchval);
+    return this.http.get<Assignment[]>(this.uri+"/search?page="+page+"&limit="+limit+"&search="+searchval);
+ }
   getAssignments():Observable<Assignment[]>{
     return this.http.get<Assignment[]>(this.uri);
   }
@@ -21,47 +29,10 @@ export class AssignmentsService {
   getAssignmentsPagine(page:number,limit:number):Observable<any>{
     return this.http.get<Assignment[]>(this.uri+"?page="+page+"&limit="+limit);
   }
- /* peuplerBD() {
-    let i =1;
-    bdInitialAssignments.forEach(a => {
-      
-      let nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.id = a.id;
-      nouvelAssignment.dateRendu = new Date(a.dateRendu);
-      nouvelAssignment.rendu = a.rendu;
-      console.log(i+" nouvelAssignment.dateRendu");
-      this.addAssignment(nouvelAssignment)
-      .subscribe(reponse => {
-        //console.log(reponse.message);
-        i++;
-      })
-    })
-  }
  
-  peuplerBDavecForkJoin():Observable<any> {
-    const appelsversAddAssignment = [];
-
-    bdInitialAssignments.forEach(a => {
-      let nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.id = a.id;
-      nouvelAssignment.dateRendu = new Date(a.dateRendu);
-      nouvelAssignment.rendu = a.rendu;
-
-      appelsversAddAssignment.push(this.addAssignment(nouvelAssignment));
-    });
-    return forkJoin(appelsversAddAssignment);
-  }
-  
-  */
   getAssignment(id:number): Observable<Assignment> {
-   /* console.log(id + "id serv")
-    let assignmentSearch = this.assignments.find(a =>a.id===id);
-    console.log(assignmentSearch.nom);
-    return of(assignmentSearch);*/
+    console.log(id + "id serv");
     return this.http.get<Assignment>(this.uri+"/"+id)
-    // pipe modifie la donnée reçu avant de la renvoyer
     .pipe(
       map(a => {
         console.log(a._id+ " ___id");
@@ -103,5 +74,39 @@ export class AssignmentsService {
     console.log(assignment._id+" ID DELETE");
     return this.http.delete(this.uri+'/'+assignment._id);
   }
+  /* peuplerBD() {
+    let i =1;
+    bdInitialAssignments.forEach(a => {
+      
+      let nouvelAssignment = new Assignment();
+      nouvelAssignment.nom = a.nom;
+      nouvelAssignment.id = a.id;
+      nouvelAssignment.dateRendu = new Date(a.dateRendu);
+      nouvelAssignment.rendu = a.rendu;
+      console.log(i+" nouvelAssignment.dateRendu");
+      this.addAssignment(nouvelAssignment)
+      .subscribe(reponse => {
+        //console.log(reponse.message);
+        i++;
+      })
+    })
+  }
+ 
+  peuplerBDavecForkJoin():Observable<any> {
+    const appelsversAddAssignment = [];
+
+    bdInitialAssignments.forEach(a => {
+      let nouvelAssignment = new Assignment();
+      nouvelAssignment.nom = a.nom;
+      nouvelAssignment.id = a.id;
+      nouvelAssignment.dateRendu = new Date(a.dateRendu);
+      nouvelAssignment.rendu = a.rendu;
+
+      appelsversAddAssignment.push(this.addAssignment(nouvelAssignment));
+    });
+    return forkJoin(appelsversAddAssignment);
+  }
+  
+  */
 }
  

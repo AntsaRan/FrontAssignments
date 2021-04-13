@@ -77,8 +77,10 @@ export class AddAssignmentComponent implements OnInit {
       || !this.secondFormGroup.value["ideleve"]
       || !this.secondFormGroup.value["idmatiere"]) {
       this.error = "Renseignez tous les champs obligatoires";
+      console.log('error');
       return;
     }
+    console.log('nandalo');
     let nouvelAssignment = new Assignment();
     nouvelAssignment.nom = this.firstFormGroup.value["nom"];
     nouvelAssignment.dateRendu = this.firstFormGroup.value["dateRendu"];

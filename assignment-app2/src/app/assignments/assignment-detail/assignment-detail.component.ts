@@ -27,7 +27,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   getAssignementById() {
     const id: number = + this.route.snapshot.params.id;
-    console.log(id + " id")
+    console.log(id + " id getAssignementById");
     this.assignmentService.getAssignment(id)
       .subscribe(assignment => {
         this.assignmentTransmis = assignment;
@@ -67,14 +67,7 @@ export class AssignmentDetailComponent implements OnInit {
 
   onclickEdit() {
     console.log(this.assignmentTransmis.id);
-    this.router.navigate(["/assignment", this.assignmentTransmis.id, "edit"],
-      {
-        queryParams: {
-          nom: 'Antsa',
-          metier: 'Dév',
-        },
-        fragment: "edition"
-      });
+    this.router.navigate(["/assignment", this.assignmentTransmis.id, "edit"]);
   }
 
   isAdmin() {

@@ -35,17 +35,17 @@ export class AuthService {
     return this.http.post<any>(this.uri + "login", user)
       .pipe(
         map(user => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          console.log(user.token+ "user token");
-          this.setSession(user);
-          return user;
+          if(user){
+            console.log(user.token+ "user token");
+            this.setSession(user);
+            return user;
+          }
         }),
         catchError(this.handleError<any>('### catchError: login'))
       );
   }
 
   private setSession(user) {
-    console.log(user.token+ "user token");
     localStorage.setItem('currentUser', JSON.stringify(user.id));
     localStorage.setItem('currentToken', user.token);
     localStorage.setItem('isadmin', user.isadmin);

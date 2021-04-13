@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
         if (!m) 
         {
           this.error=" Username or password error";
+          return;
         }
         this.reloadComponent();
       });

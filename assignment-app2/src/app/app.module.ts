@@ -32,6 +32,9 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatSelectModule} from '@angular/material/select';
+import { SearchComponent } from './assignments/search/search.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
   {
@@ -63,6 +66,14 @@ const routes: Routes = [
     path: "assignment/:id/edit",
     component: EditAssignmentComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: "search/:search",
+    component: SearchComponent,
+  },
+  {
+    path: "search",
+    component: SearchComponent,
   }
 ]
 @NgModule({
@@ -75,15 +86,16 @@ const routes: Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     LoginComponent,
-    DialogComponent
+    DialogComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule, MatSlideToggleModule,MatSelectModule,
-    BrowserAnimationsModule,ReactiveFormsModule,
+    BrowserAnimationsModule,ReactiveFormsModule,DragDropModule,
     FormsModule, HttpClientModule,MatStepperModule,
     MatButtonModule, MatDividerModule, MatIconModule, 
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
-    MatNativeDateModule, MatListModule,MatDialogModule,
+    MatNativeDateModule, MatListModule,MatDialogModule,MatTabsModule,
     MatCardModule, MatCheckboxModule, MatProgressSpinnerModule, MatPaginatorModule,
     RouterModule.forRoot(routes)
   ],

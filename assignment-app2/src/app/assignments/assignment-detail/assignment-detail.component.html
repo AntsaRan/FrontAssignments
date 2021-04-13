@@ -1,22 +1,49 @@
 <div class="container">
-    <mat-card *ngIf="assignmentTransmis">
-        <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-        <mat-card-subtitle>{{assignmentTransmis.dateRendu | date}}</mat-card-subtitle>
+    <div class="row">
+        <mat-card *ngIf="assignmentTransmis" class="matheight">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image "></div>
+                <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
+            </mat-card-header>
+            <div class="col-lg-6">
+                <div class="ficheel" style="margin-top:15px;">
+                    <b> Date de rendu :</b> {{assignmentTransmis.dateRendu | date}}
+                </div>
+                <mat-divider></mat-divider>
+                <div class="ficheel">
+                    <b> Eleve :</b> {{assignmentTransmis.id_eleve.nom}}
+                </div>
+                <mat-divider></mat-divider>
+                <div class="ficheel">
+                    <b> Matiere :</b> {{assignmentTransmis.id_matiere.nom}}
+                </div>
+                <mat-divider></mat-divider>
+                <div class="ficheel" *ngIf="assignmentTransmis.note;else nonnote">
+                    <b> Note :</b> {{assignmentTransmis.note}}/20
+                </div>
 
-        <p>Eleve : {{assignmentTransmis.id_eleve}}</p>
-        <mat-divider></mat-divider>
-        <p>Matiere : {{assignmentTransmis.id_matiere}}</p>
-        <mat-divider></mat-divider>
-        <p>Note : {{assignmentTransmis.note}}/20</p>
-        <mat-divider></mat-divider>
-        <p>Remarque : {{assignmentTransmis.remarque}}</p>
+                <ng-template #nonnote>
+                    <div class="ficheel">
+                        <b appNonRendu> Note : Non rendu</b>
+                    </div>
+                </ng-template>
 
+                <mat-divider></mat-divider>
+                <div class="ficheel">
+                    <b> Remarque :</b> {{assignmentTransmis.remarque}}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img mat-card-image class="imgcard" src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                    alt="Photo of a Shiba Inu">
+            </div>
+
+        </mat-card>
         <div id="bottom">
-            <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
-                Rendu
-            </mat-checkbox>
-            <button [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onclickEdit()">Edit</button>
-            <button [disabled]="!isAdmin()" mat-stroked-button class="btndelete" (click)="deleteAssignment()">Supprimer</button>
+            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button color="primary"
+                (click)="onclickEdit()">Edit</button>
+            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button class="btndelete"
+                (click)="deleteAssignment()">Supprimer</button>
         </div>
-    </mat-card>
+    </div>
 </div>

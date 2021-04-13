@@ -24,6 +24,7 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number;
   pageSizeOptions: number[] = [5, 10, 25];
   limit: number;
+
   //injection service
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
@@ -50,7 +51,6 @@ export class AssignmentsComponent implements OnInit {
 
   }
 
-
   assignmentClique(a) {
     this.assignmentSelect = a;
   }
@@ -71,6 +71,24 @@ export class AssignmentsComponent implements OnInit {
         console.log("données reçues o");
       });
   }
+
+  getAssignmentsSeach(search: string) {
+    this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
+      .subscribe(data => {
+        this.limit = data.limit;
+        this.assignments = data.docs;
+        this.page = data.page;
+        this.totalPages = data.totalPages;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        this.spinnershow = false;
+
+        console.log("données reçues o");
+      });
+  }
+
 
   Prev() {
   /*  this.page = this.prevPage;
@@ -128,7 +146,7 @@ export class AssignmentsComponent implements OnInit {
     //this.assignments.push(event);
     this.assignmentsService.addAssignment(event)
     .subscribe(message =>{
-      console.log(message);
+      console.log(message); 
       this.formVisible = false;
     })
   }*/
