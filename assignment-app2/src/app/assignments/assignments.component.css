@@ -6,22 +6,23 @@
 @import '../assets/css/dataTables/dataTables.responsive.css';
 @import '../assets/css/startmin.css';
 @import '../assets/css/font-awesome.min.css';
-
-.container{
-display: flex;
-flex-direction: column;
-margin: 15px;
-}
-.ajouterBtn{
-align-self: flex-end;
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
 }
 
-.spinnerimg{
+.ajouterBtn {
+    align-self: flex-end;
+}
+
+.spinnerimg {
     width: 90%;
     display: block;
     margin: auto;
 }
-.matbtn{
+
+.matbtn {
     text-align: center;
     min-width: 64px;
     line-height: 36px;
