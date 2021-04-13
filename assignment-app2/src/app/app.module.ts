@@ -35,6 +35,9 @@ import { MatSelectModule} from '@angular/material/select';
 import { SearchComponent } from './assignments/search/search.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ListElevesComponent } from './list-eleves/list-eleves.component';
+import { ListMatieresComponent } from './list-matieres/list-matieres.component';
+import { ListProfsComponent } from './list-profs/list-profs.component';
 
 const routes: Routes = [
   {
@@ -72,8 +75,16 @@ const routes: Routes = [
     component: SearchComponent,
   },
   {
-    path: "search",
-    component: SearchComponent,
+    path: "listEleve",
+    component: ListElevesComponent,
+  },
+  {
+    path: "listProfs",
+    component: ListProfsComponent,
+  },
+  {
+    path: "listMat",
+    component: ListMatieresComponent,
   }
 ]
 @NgModule({
@@ -87,7 +98,10 @@ const routes: Routes = [
     EditAssignmentComponent,
     LoginComponent,
     DialogComponent,
-    SearchComponent
+    SearchComponent,
+    ListElevesComponent,
+    ListMatieresComponent,
+    ListProfsComponent
   ],
   imports: [
     BrowserModule, MatSlideToggleModule,MatSelectModule,
