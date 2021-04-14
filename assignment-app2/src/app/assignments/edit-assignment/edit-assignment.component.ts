@@ -81,7 +81,6 @@ export class EditAssignmentComponent implements OnInit {
   onSubmit(event) {
     console.log( this.note + "  this.note ");
     if (!this.nom || !this.dateRendu || !this.id_eleve_new || !this.id_matiere_new) {
-      console.log("tsy ampy ");
       this.error = "Renseignez tous les champs obligatoires";
     } else {
 

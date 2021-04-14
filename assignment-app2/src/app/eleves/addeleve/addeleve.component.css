@@ -1,0 +1,54 @@
+@import '../../assets/css/bootstrap.min.css';
+@import '../../assets/css/bootstrap.min.css';
+@import '../../assets/css/bootstrap.min.css';
+@import '../../assets/css/metisMenu.min.css';
+@import '../../assets/css/dataTables/dataTables.bootstrap.css';
+@import '../../assets/css/dataTables/dataTables.responsive.css';
+@import '../../assets/css/startmin.css';
+@import '../../assets/css/font-awesome.min.css';
+
+form {
+    display:flex;
+    flex-direction: column;
+    margin:5px;
+  }
+  #bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .matbtn{
+    text-align: center;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    margin: 8px 8px 8px 0;
+    background-color: #639e9e;
+    color: white;
+}
+
+.matSubmit {
+  text-align: center;
+  min-width: 64px;
+  line-height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  overflow: visible;
+  margin: 8px 8px 8px 0;
+  background-color: #E66448;
+  color: white;
+}
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color: #E66448!important;
+  color: #fff;
+}
+.errortext{
+  font-weight: bold;
+    text-transform: uppercase;
+    color: red;
+    background: #ffe4e4;
+    text-align: center;
+}

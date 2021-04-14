@@ -23,11 +23,15 @@
                                         <thead>
                                             <tr>
                                                 <th>Nom</th>
+                                                <th>Prénom</th>
+                                                <th>Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let a of eleves" class="odd gradeX">
-                                                <td>{{a.nom}}</td>              
+                                                <td><a routerLink="/eleve/{{a.id}}">{{a.nom}}</a></td>    
+                                                <td>{{a.prenom}}</td>
+                                                <td>{{a.email}}</td>           
                                             </tr>
                                         </tbody>
                                 

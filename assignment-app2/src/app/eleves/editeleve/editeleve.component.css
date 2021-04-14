@@ -1,0 +1,32 @@
+@import '../../assets/css/bootstrap.min.css';
+@import '../../assets/css/bootstrap.min.css';
+@import '../../assets/css/bootstrap.min.css';
+@import '../../assets/css/metisMenu.min.css';
+@import '../../assets/css/dataTables/dataTables.bootstrap.css';
+@import '../../assets/css/dataTables/dataTables.responsive.css';
+@import '../../assets/css/startmin.css';
+@import '../../assets/css/font-awesome.min.css';
+
+.form {
+    display:flex;
+    flex-direction: column;
+    margin:5px;
+  }
+  .matbn{
+    text-align: center;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    margin: 8px 8px 8px 0;
+    background-color: #639e9e;
+    color: white;
+}
+.errortext{
+  font-weight: bold;
+    text-transform: uppercase;
+    color: red;
+    background: #ffe4e4;
+    text-align: center;
+}

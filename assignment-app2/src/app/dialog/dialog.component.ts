@@ -19,6 +19,5 @@ export class DialogComponent implements OnInit {
   supprimer() {
     this.res=true;
     this.dialogRef.close(this.res);
-
   }
 }

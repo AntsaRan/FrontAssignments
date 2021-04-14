@@ -8,6 +8,6 @@ export class Assignment
     id_eleve: number;
     id_matiere: number;
     note: number;
-    remarque: String
+    remarque: string
 
 }

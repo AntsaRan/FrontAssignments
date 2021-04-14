@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from '../shared/assignments.service';
-import { ElevesService } from '../shared/eleves.service';
-import { MatieresService } from '../shared/matieres.service';
-import { Matiere } from '../shared/model/matiere.model';
+import { MatieresService } from '../../shared/matieres.service';
+import { Matiere } from '../../shared/model/matiere.model';
 @Component({
   selector: 'app-list-matieres',
   templateUrl: './list-matieres.component.html',

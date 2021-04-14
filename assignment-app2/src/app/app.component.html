@@ -110,10 +110,18 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a routerLink="/listEleve"><i class="fa fa-list"></i> Liste Elèves</a>
-                        </li>
-                        <li>
-                            <a routerLink="/listProfs"><i class="fa fa-list"></i> Liste Professeurs</a>
+                            <a href="#"><i class="fa fa-book"></i> Elèves<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a routerLink="/listEleve"><i class="fa fa-list" ></i>Liste Elèves</a>
+                                </li>
+                                <li>
+                                    <a routerLink="/addEleves" class="ajouterBtn">
+                                        <i class="fa fa-plus"></i>Ajouter un Elèves
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a routerLink="/listMat"><i class="fa fa-list"></i> Liste Matières</a>

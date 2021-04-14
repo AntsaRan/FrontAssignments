@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from '../shared/assignments.service';
-import { ElevesService } from '../shared/eleves.service';
-import { Eleve } from '../shared/model/eleve.model';
-
+import { ElevesService } from '../../shared/eleves.service';
+import { Eleve } from '../../shared/model/eleve.model';
 
 @Component({
   selector: 'app-list-eleves',
@@ -35,16 +33,23 @@ export class ListElevesComponent implements OnInit {
 
   }
   getEleves() {
-    this.eleveservice.getEleves()
+    this.eleveservice.getElevesPagine(this.page, this.limit)
       .subscribe(data => {
-        this.eleves = data;
+        this.limit = data.limit;
+        this.eleves = data.docs;
+        this.page = data.page;
+        this.totalPages = data.totalPages;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
         this.spinnershow = false;
       });
   }
   Prev() {
     /*  this.page = this.prevPage;
       this.getAssignments();*/
-      this.router.navigate(["/home"],
+      this.router.navigate(["/listEleve"],
       {
         queryParams: {
           page: this.prevPage,
@@ -59,7 +64,7 @@ export class ListElevesComponent implements OnInit {
       this.page=this.nextPage;
       this.getAssignments();
   */
-      this.router.navigate(["/home"],
+      this.router.navigate(["/listEleve"],
         {
           queryParams: {
             page: this.nextPage,
@@ -70,7 +75,7 @@ export class ListElevesComponent implements OnInit {
     FirstP() {
       /*this.page = 1;
       this.getAssignments();*/
-      this.router.navigate(["/home"],
+      this.router.navigate(["/listEleve"],
       {
         queryParams: {
           page: 1,
@@ -81,7 +86,7 @@ export class ListElevesComponent implements OnInit {
     LastP() {
       /*this.page = this.totalPages;
       this.getAssignments();*/
-      this.router.navigate(["/home"],
+      this.router.navigate(["/listEleve"],
       {
         queryParams: {
           page: this.totalPages,

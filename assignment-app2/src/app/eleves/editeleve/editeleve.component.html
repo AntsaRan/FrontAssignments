@@ -1,0 +1,20 @@
+<div class="col-lg-6">
+    <h2>Modification Elève</h2>
+    <form ngForm #formAssignment class="form" (submit)="onSubmit($event);">
+        <mat-form-field>
+            <input matInput placeholder="Nom de l'élève" [(ngModel)]="nom" name="nom" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Prénom de l'élève" [(ngModel)]="prenom" name="prenom" required>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+        </mat-form-field>
+        <p class="errortext">{{error}}</p>
+        <button class="matbn" mat-stroked-button color="primary">
+            Modifier un élève
+        </button>
+    </form>
+</div>

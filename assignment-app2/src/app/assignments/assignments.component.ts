@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from '../shared/assignments.service';
@@ -7,7 +7,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { NotationComponent } from 'src/app/shared/notation/notation.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AnnulationRenduComponent } from '../shared/annulation-rendu/annulation-rendu.component';
-
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-assignments',
@@ -18,6 +19,7 @@ export class AssignmentsComponent implements OnInit {
   // ajoutActive = false;
   assignmentSelect: Assignment;
   assignments: Assignment[];
+  assignmentsScroll: Assignment[]=[];
   spinnershow = true;
   nodata = false;
   page: number = 1;
@@ -28,8 +30,24 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number;
   pageSizeOptions: number[] = [5, 10, 25];
   limit: number;
+
+  /* scrolling */
+  pageScr: number = 1;
+  totalPagesScr: number;
+  hasNextPageScr: boolean;
+  hasPrevPageScr: boolean;
+  nextPageScr: number;
+  prevPageScr: number;
+  pageSizeOptionsScr: number[] = [5, 10, 25];
+  limitScr: number;
+
+  /*  --------------------- */
+
   imageUrl: string = "../../assets/img/";
 
+
+  @ViewChild("scroller")
+  scroller!: CdkVirtualScrollViewport;
   /* DRAG AND DROP */
 
   nonrendu: Assignment[];
@@ -39,29 +57,77 @@ export class AssignmentsComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private ngZone: NgZone) { }
 
   ngOnInit() {
-    console.log('AVANT AFFICHAGE');
-    /*
-    setTimeout(() => {
-      this.ajoutActive = true;
-    }, 3000);
-    */
-    /* if (this.assignments.length==0){
-       this.nodata=true;
-     }*/
     const iduser = localStorage.getItem('currentUser');
     const idToken = localStorage.getItem('currentToken');
-    console.log(idToken + " token " + iduser + " user");
     this.route.queryParams.subscribe(queryparams => {
       this.page = queryparams.page || 1;
       this.limit = queryparams.limit || 10;
+      this.pageScr=1;
+      this.limitScr =queryparams.limit || 3;
       this.getAssignments();
     })
     this.rendu = [];
     this.nonrendu = [];
 
+  }
+  ngAfterViewInit() {
+
+    this.scroller
+      .elementScrolled()
+      .pipe(
+        map((event) => {
+          return this.scroller.measureScrollOffset("bottom");
+        }),
+        pairwise(),
+        tap(([y1, y2]) => {
+          if(y2 < y1) {
+            console.log(y1 );
+            console.log(y2);
+            console.log("ON SCROLLE VERS LE BAS !");
+          } else {
+            console.log("ON SCROLLE VERS LE HAUT !");
+          }
+        }),
+        filter(([y1, y2]) => y2 < y1 && y2 <200),
+        throttleTime(200)
+      )
+      .subscribe((dist) => {
+        this.ngZone.run(() => {
+          if (this.hasNextPageScr) {
+            this.pageScr = this.nextPageScr;
+            this.getAssignmentsScroll();
+          }else if (!this.hasNextPageScr&&this.pageScr==1){
+            this.getAssignmentsScroll();
+          }else{
+            this.pageScr=1;
+            this.getAssignmentsScroll();
+          }
+        });
+      });
+  }
+
+  getAssignmentsScroll() {
+
+      this.assignmentsService
+        .getAssignmentsPagine(this.pageScr, this.limitScr)
+        .subscribe((data) => {
+
+          // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
+          // on va les ajouter à ceux déjà présents...
+          this.assignmentsScroll = this.assignmentsScroll.concat(data.docs);
+          // this.assignments = [...this.assignments, ...data.docs];
+          this.limitScr = data.limit;
+          this.pageScr = data.page;
+          this.totalPagesScr = data.totalPages;
+          this.hasNextPageScr = data.hasNextPage;
+          this.hasPrevPageScr = data.hasPrevPage;
+          this.nextPageScr = data.nextPage;
+          this.prevPageScr = data.prevPage;
+        });
   }
 
   assignmentClique(a) {
@@ -73,6 +139,9 @@ export class AssignmentsComponent implements OnInit {
       .subscribe(data => {
         this.limit = data.limit;
         this.assignments = data.docs;
+        if(this.assignmentsScroll.length==0){
+          this.assignmentsScroll=data.docs;
+        }
         this.page = data.page;
         this.totalPages = data.totalPages;
         this.hasNextPage = data.hasNextPage;
@@ -81,13 +150,23 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.spinnershow = false;
 
-        this.assignments.forEach(assignment => {
-          if (assignment.rendu) {
-            this.rendu.push(assignment);
-          } else {
-            this.nonrendu.push(assignment);
-          }
-        })
+        if(this.isAdmin()){
+          this.assignments.forEach(assignment => {
+            if (assignment.rendu) {
+              this.rendu.push(assignment);
+            } else {
+              this.nonrendu.push(assignment);
+            }
+          })
+        }else{
+          this.assignments.forEach(assignment => {
+            if (assignment.rendu) {
+              this.rendu.push(assignment);
+            } else {
+              this.nonrendu.push(assignment);
+            }
+          })
+        }
       });
   }
 
@@ -248,4 +327,11 @@ export class AssignmentsComponent implements OnInit {
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate([currentUrl]);
     }
+      isAdmin() {
+    const isadmin = localStorage.getItem('isadmin');
+    var isADMIN: boolean = false;
+    if (isadmin === "false") return isADMIN;
+    return true;
+
+  }
 }

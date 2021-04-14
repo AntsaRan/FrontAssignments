@@ -33,10 +33,14 @@
                     <b> Remarque :</b> {{assignmentTransmis.remarque}}
                 </div>
             </div>
-            <div class="col-lg-6">
-                <img mat-card-image class="imgcard" src="{{imgUrl}}{{profTransmis.image}}" alt="Photo of a Shiba Inu">
+            <div class="col-lg-6" style="text-align: center;">
+                <div class="cardimage">
+                    <img mat-card-image class="imgcard" src="{{imgUrl}}{{profTransmis.image}}" alt="Photo du professeur">
+                    <div class="containerNom">
+                        <p class="nomprof">{{profTransmis.nom}}</p>
+                    </div>
+                </div>
             </div>
-
         </mat-card>
         <div id="bottom">
             <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onclickEdit()">Edit</button>

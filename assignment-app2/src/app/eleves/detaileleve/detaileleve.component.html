@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row detaildiv">
+        <mat-card *ngIf="elevetransmis" class="matheight">
+            <div class="col-lg-6">
+                <div class="ficheel" style="margin-top:15px;">
+                    <b> Nom :</b> {{elevetransmis.nom}}
+                </div>
+                <mat-divider></mat-divider>
+                <div class="ficheel">
+                    <b> Prénom :</b> {{elevetransmis.prenom}}
+                </div>
+                <mat-divider></mat-divider>
+                <div class="ficheel">
+                    <b> Email :</b> {{elevetransmis.email}}
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+     
+        </mat-card>
+        <div id="bottom">
+            <button class="matbtn" [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onclickEdit()">Edit</button>
+        </div>
+    </div>
+</div>

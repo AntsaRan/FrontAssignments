@@ -35,11 +35,17 @@ import { MatSelectModule} from '@angular/material/select';
 import { SearchComponent } from './assignments/search/search.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { ListElevesComponent } from './list-eleves/list-eleves.component';
-import { ListMatieresComponent } from './list-matieres/list-matieres.component';
+import { ListElevesComponent } from './eleves/list-eleves/list-eleves.component';
+import { ListMatieresComponent } from './matieres/list-matieres/list-matieres.component';
 import { ListProfsComponent } from './list-profs/list-profs.component';
 import { NotationComponent } from './shared/notation/notation.component';
 import { AnnulationRenduComponent } from './shared/annulation-rendu/annulation-rendu.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { AddeleveComponent } from './eleves/addeleve/addeleve.component';
+import { AddMatiereComponent } from './matieres/add-matiere/add-matiere.component';
+import { DetaileleveComponent } from './eleves/detaileleve/detaileleve.component';
+import { EditeleveComponent } from './eleves/editeleve/editeleve.component';
+
 const routes: Routes = [
   {
     path: "",
@@ -80,6 +86,20 @@ const routes: Routes = [
     component: ListElevesComponent,
   },
   {
+    path: "addEleves",
+    component: AddeleveComponent,
+  },
+  {
+    path: "eleve/:id",
+    component: DetaileleveComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "eleve/:id/edit",
+    component: EditeleveComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: "listProfs",
     component: ListProfsComponent,
   },
@@ -104,12 +124,17 @@ const routes: Routes = [
     ListMatieresComponent,
     ListProfsComponent,
     NotationComponent,
-    AnnulationRenduComponent
+    AnnulationRenduComponent,
+    AnnulationRenduComponent,
+    AddeleveComponent,
+    AddMatiereComponent,
+    DetaileleveComponent,
+    EditeleveComponent
   ],
   imports: [
     BrowserModule, MatSlideToggleModule,MatSelectModule,
     BrowserAnimationsModule,ReactiveFormsModule,DragDropModule,
-    FormsModule, HttpClientModule,MatStepperModule,
+    FormsModule, HttpClientModule,MatStepperModule,ScrollingModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatDatepickerModule,
     MatNativeDateModule, MatListModule,MatDialogModule,MatTabsModule,

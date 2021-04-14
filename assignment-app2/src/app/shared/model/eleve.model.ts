@@ -2,5 +2,7 @@ export class Eleve
 {
     _id:string;
     id: Number;
-    nom: String;
+    nom: string;
+    prenom:string;
+    email:string;
 }
