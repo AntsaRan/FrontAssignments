@@ -8,6 +8,7 @@ import { Prof } from './model/prof.model';
   providedIn: 'root'
 })
 export class ProfService {
+ 
   profs: Prof[];
 
   constructor(private http:HttpClient) { }
@@ -33,7 +34,9 @@ export class ProfService {
         return (a.rendu)
       })*/
     }
- 
+    getProfsPagine(page: number, limit: number): Observable<any> {
+      return this.http.get<Prof[]>(this.uri + "?page=" + page + "&limit=" + limit);
+    }
 
   private handleError<T>(operation: any, result?: T){
     return (error:any): Observable<T> => {

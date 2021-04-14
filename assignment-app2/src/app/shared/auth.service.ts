@@ -16,7 +16,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -35,8 +35,8 @@ export class AuthService {
     return this.http.post<any>(this.uri + "login", user)
       .pipe(
         map(user => {
-          if(user){
-            console.log(user.token+ "user token");
+          if (user) {
+            console.log(user.token + "user token");
             this.setSession(user);
             return user;
           }
@@ -47,6 +47,7 @@ export class AuthService {
 
   private setSession(user) {
     localStorage.setItem('currentUser', JSON.stringify(user.id));
+    localStorage.setItem('username', user.username);
     localStorage.setItem('currentToken', user.token);
     localStorage.setItem('isadmin', user.isadmin);
     this.currentUserSubject.next(user);
@@ -64,7 +65,7 @@ export class AuthService {
     localStorage.removeItem('currentToken');
     localStorage.removeItem('isadmin');
     this.currentUserSubject.next(null);
-    console.log(this.currentUserSubject.value+ " CUREERZER ZERZEAR");
+    console.log(this.currentUserSubject.value + " CUREERZER ZERZEAR");
     this.router.navigate(['/login']);
   }
 
