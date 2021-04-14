@@ -12,7 +12,7 @@ export class ProfService {
   profs: Prof[];
 
   constructor(private http:HttpClient) { }
-  uri = "http://localhost:8010/api/prof";
+  uri = "  https://api-assingments.herokuapp.com/api/prof";
 
   getProfs():Observable<Prof[]>{
     return this.http.get<Prof[]>(this.uri);

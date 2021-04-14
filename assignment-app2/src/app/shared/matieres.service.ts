@@ -11,7 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 export class MatieresService {
   matieres: Matiere[];
   constructor(private http:HttpClient) { }
-  uri = "http://localhost:8010/api/matiere";
+  uri = "  https://api-assingments.herokuapp.com/api/matiere";
 
   getMatieres():Observable<Matiere[]>{
     return this.http.get<Matiere[]>(this.uri);
