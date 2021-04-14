@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   uri = "https://api-assingments.herokuapp.com/api/auth";
-  //user: User;
+  //user: User; 
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
