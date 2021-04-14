@@ -16,6 +16,7 @@ export class AssignmentsService {
   assignments: Assignment[];
   constructor(private loggingservice:LoggingService,private http:HttpClient) { } 
   uri = "https://api-assingments.herokuapp.com/api/assignments";
+  //
 
   getAssignmentbyname(page:number,limit:number,searchval: string):Observable<any> {
    // return this.http.get<Assignment>(this.uri+"/search/"+searchval);
