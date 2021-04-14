@@ -21,7 +21,7 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  uri = "https://api-assingments.herokuapp.com/api/auth";
+  uri = "https://api-assingments.herokuapp.com/api/auth/";
   //user: User; 
 
   public get currentUserValue(): User {
