@@ -19,7 +19,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Eleves</mat-label>
-            <mat-select  [(ngModel)]="id_eleve_new" name="id_eleve_new" required >
+            <mat-select [(value)]="selectedEl" [(ngModel)]="id_eleve_new" name="id_eleve_new" required >
                 <mat-option *ngFor="let a of listEleves" [value]="a._id">{{a.nom}}</mat-option>
             </mat-select>
         </mat-form-field>

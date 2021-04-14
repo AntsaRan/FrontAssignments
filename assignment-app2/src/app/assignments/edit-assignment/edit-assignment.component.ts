@@ -28,7 +28,7 @@ export class EditAssignmentComponent implements OnInit {
   /* LISTS */
   listEleves: Eleve[];
   listMatieres: Matiere[];
-
+  selectedEl:string;
   constructor(
     private assignmentService: AssignmentsService,
     private route: ActivatedRoute,
@@ -53,6 +53,7 @@ export class EditAssignmentComponent implements OnInit {
         this.id_matiere = assignment.id_matiere['nom'];
         this.note = assignment.note;
         this.remarque = assignment.remarque;
+
       })
     this.getMatieres();
     this.getEleves();
@@ -61,6 +62,12 @@ export class EditAssignmentComponent implements OnInit {
     this.eleveService.getEleves()
       .subscribe(data => {
         this.listEleves = data;
+        this.listEleves.forEach(e=>{
+          if(e._id===this.id_eleve)
+          this.selectedEl=e._id;
+
+
+        })
       });
   }
 
