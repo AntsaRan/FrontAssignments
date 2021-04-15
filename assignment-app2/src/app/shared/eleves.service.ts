@@ -14,8 +14,8 @@ export class ElevesService {
 
   eleves: Eleve[];
   constructor(private http: HttpClient) { }
-  uri = "  https://api-assingments.herokuapp.com/api/eleve";
-  uriSimple = "  https://api-assingments.herokuapp.com/api/eleveList";
+  uri = "  http://localhost:8010/api/eleve";
+  uriSimple = "  http://localhost:8010/api/eleveList";
 
   addEleve(nouvelEleve: Eleve) {
     nouvelEleve.id = this.generateId();
