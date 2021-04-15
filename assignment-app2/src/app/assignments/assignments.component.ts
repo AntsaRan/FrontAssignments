@@ -19,7 +19,7 @@ export class AssignmentsComponent implements OnInit {
   // ajoutActive = false;
   assignmentSelect: Assignment;
   assignments: Assignment[];
-  assignmentsScroll: Assignment[]=[];
+  assignmentsScroll: Assignment[] = [];
   spinnershow = true;
   nodata = false;
   page: number = 1;
@@ -41,8 +41,6 @@ export class AssignmentsComponent implements OnInit {
   pageSizeOptionsScr: number[] = [5, 10, 25];
   limitScr: number;
 
-  /*  --------------------- */
-
   imageUrl: string = "../../assets/img/";
 
 
@@ -52,6 +50,7 @@ export class AssignmentsComponent implements OnInit {
 
   nonrendu: Assignment[];
   rendu: Assignment[];
+
   assignDrag: Assignment;
   //injection service
   constructor(private assignmentsService: AssignmentsService,
@@ -61,17 +60,18 @@ export class AssignmentsComponent implements OnInit {
     private ngZone: NgZone) { }
 
   ngOnInit() {
+    this.rendu = [];
+    this.nonrendu = [];
     const iduser = localStorage.getItem('currentUser');
     const idToken = localStorage.getItem('currentToken');
     this.route.queryParams.subscribe(queryparams => {
       this.page = queryparams.page || 1;
       this.limit = queryparams.limit || 10;
-      this.pageScr=1;
-      this.limitScr =queryparams.limit || 3;
+      this.pageScr = 1;
+      this.limitScr = queryparams.limit || 3;
       this.getAssignments();
+      this.getAssignmentsRNR();
     })
-    this.rendu = [];
-    this.nonrendu = [];
 
   }
   ngAfterViewInit() {
@@ -84,15 +84,15 @@ export class AssignmentsComponent implements OnInit {
         }),
         pairwise(),
         tap(([y1, y2]) => {
-          if(y2 < y1) {
-            console.log(y1 );
+          if (y2 < y1) {
+            console.log(y1);
             console.log(y2);
             console.log("ON SCROLLE VERS LE BAS !");
           } else {
             console.log("ON SCROLLE VERS LE HAUT !");
           }
         }),
-        filter(([y1, y2]) => y2 < y1 && y2 <200),
+        filter(([y1, y2]) => y2 < y1 && y2 < 200),
         throttleTime(200)
       )
       .subscribe((dist) => {
@@ -100,10 +100,10 @@ export class AssignmentsComponent implements OnInit {
           if (this.hasNextPageScr) {
             this.pageScr = this.nextPageScr;
             this.getAssignmentsScroll();
-          }else if (!this.hasNextPageScr&&this.pageScr==1){
+          } else if (!this.hasNextPageScr && this.pageScr == 1) {
             this.getAssignmentsScroll();
-          }else{
-            this.pageScr=1;
+          } else {
+            this.pageScr = 1;
             this.getAssignmentsScroll();
           }
         });
@@ -112,22 +112,22 @@ export class AssignmentsComponent implements OnInit {
 
   getAssignmentsScroll() {
 
-      this.assignmentsService
-        .getAssignmentsPagine(this.pageScr, this.limitScr)
-        .subscribe((data) => {
+    this.assignmentsService
+      .getAssignmentsPagine(this.pageScr, this.limitScr)
+      .subscribe((data) => {
 
-          // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
-          // on va les ajouter à ceux déjà présents...
-          this.assignmentsScroll = this.assignmentsScroll.concat(data.docs);
-          // this.assignments = [...this.assignments, ...data.docs];
-          this.limitScr = data.limit;
-          this.pageScr = data.page;
-          this.totalPagesScr = data.totalPages;
-          this.hasNextPageScr = data.hasNextPage;
-          this.hasPrevPageScr = data.hasPrevPage;
-          this.nextPageScr = data.nextPage;
-          this.prevPageScr = data.prevPage;
-        });
+        // au lieu de remplacer this.assignments par les nouveaux assignments récupérés
+        // on va les ajouter à ceux déjà présents...
+        this.assignmentsScroll = this.assignmentsScroll.concat(data.docs);
+        // this.assignments = [...this.assignments, ...data.docs];
+        this.limitScr = data.limit;
+        this.pageScr = data.page;
+        this.totalPagesScr = data.totalPages;
+        this.hasNextPageScr = data.hasNextPage;
+        this.hasPrevPageScr = data.hasPrevPage;
+        this.nextPageScr = data.nextPage;
+        this.prevPageScr = data.prevPage;
+      });
   }
 
   assignmentClique(a) {
@@ -135,12 +135,14 @@ export class AssignmentsComponent implements OnInit {
   }
 
   getAssignments() {
+    console.log("getAssignments");
+
     this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
       .subscribe(data => {
         this.limit = data.limit;
         this.assignments = data.docs;
-        if(this.assignmentsScroll.length==0){
-          this.assignmentsScroll=data.docs;
+        if (this.assignmentsScroll.length == 0) {
+          this.assignmentsScroll = data.docs;
         }
         this.page = data.page;
         this.totalPages = data.totalPages;
@@ -150,24 +152,22 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.spinnershow = false;
 
-        if(this.isAdmin()){
-          this.assignments.forEach(assignment => {
-            if (assignment.rendu) {
-              this.rendu.push(assignment);
-            } else {
-              this.nonrendu.push(assignment);
-            }
-          })
-        }else{
-          this.assignments.forEach(assignment => {
-            if (assignment.rendu) {
-              this.rendu.push(assignment);
-            } else {
-              this.nonrendu.push(assignment);
-            }
-          })
-        }
+
       });
+  }
+
+  getAssignmentsRNR() {
+    console.log("getAssignmentsRNR");
+    this.assignmentsService.getAssignmentsSimple()
+      .subscribe(data => {
+          data.forEach(assignment => {
+            if (assignment.rendu) {
+              this.rendu.push(assignment);
+            } else {
+              this.nonrendu.push(assignment);
+            }
+          })   
+      })
   }
 
   getAssignmentsSeach(search: string) {
@@ -242,45 +242,42 @@ export class AssignmentsComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      const id = event.previousContainer.data[event.previousIndex]['_id'];
+      const id = event.previousContainer.data[event.previousIndex]['id'];
       let assignment = new Assignment();
-      assignment = this.getAssignementById(id);
-      assignment._id = id;
-      //this.assignmentsService.updateAssignment(assignment);
-      this.notation(assignment);
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+      this.assignmentsService.getAssignment(id)
+      .subscribe(a => {
+        assignment = a;
+        this.notation(assignment);
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+      })
+
     }
   }
   tononrendu(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      const id = event.previousContainer.data[event.previousIndex]['_id'];
+      const id = event.previousContainer.data[event.previousIndex]['id'];
       let assignment = new Assignment();
-      assignment = this.getAssignementById(id);
-      assignment._id = id;
-      //this.assignmentsService.updateAssignment(assignment);
-      this.nonRendu(assignment);
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+      this.assignmentsService.getAssignment(id)
+      .subscribe(a => {
+        assignment = a;
+        this.nonRendu(assignment);
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+      })
 
     }
   }
-  getAssignementById(id): Assignment {
-    let assignment = new Assignment();
-    this.assignmentsService.getAssignment(id)
-      .subscribe(a => {
-        assignment = a;
-      })
-    return assignment;
-  }
+
 
   notation(assignment: Assignment) {
+    
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.data = {
@@ -289,16 +286,17 @@ export class AssignmentsComponent implements OnInit {
     const dialogRef = this.dialog.open(NotationComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
       data => {
-        console.log("Dialog output:", data);
         if (data != null) {
-          assignment.note = data;
+          assignment.note = data['note'];
+          assignment.remarque = data['remarque'];
           assignment.rendu = true;
           this.assignmentsService.updateAssignment(assignment)
             .subscribe(m => {
               console.log(m);
               this.reloadComponent();
             })
-        }else{
+            return ;
+        } else {
           this.reloadComponent();
         }
       }
@@ -311,24 +309,24 @@ export class AssignmentsComponent implements OnInit {
     const dialogRef = this.dialog.open(AnnulationRenduComponent);
     dialogRef.afterClosed().subscribe(
       data => {
-          assignment.note = null;
-          assignment.rendu = false;
-          this.assignmentsService.updateAssignment(assignment)
-            .subscribe(m => {
-              console.log(m);
-              this.reloadComponent();
-            })
-        
+        assignment.note = null;
+        assignment.rendu = false;
+        this.assignmentsService.updateAssignment(assignment)
+          .subscribe(m => {
+            console.log(m);
+            this.reloadComponent();
+          })
+
       }
     );
   }
   reloadComponent() {
     let currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
-    }
-      isAdmin() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+  }
+  isAdmin() {
     const isadmin = localStorage.getItem('isadmin');
     var isADMIN: boolean = false;
     if (isadmin === "false") return isADMIN;

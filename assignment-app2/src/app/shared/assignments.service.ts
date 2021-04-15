@@ -16,6 +16,7 @@ export class AssignmentsService {
   assignments: Assignment[];
   constructor(private loggingservice:LoggingService,private http:HttpClient) { } 
   uri = "https://api-assingments.herokuapp.com/api/assignments";
+    //uri=" http://localhost:8010/api/assignments";
 
   getAssignmentbyname(page:number,limit:number,searchval: string):Observable<any> {
    // return this.http.get<Assignment>(this.uri+"/search/"+searchval);
@@ -25,16 +26,19 @@ export class AssignmentsService {
   getAssignments():Observable<Assignment[]>{
     return this.http.get<Assignment[]>(this.uri);
   }
-
+  getAssignmentsSimple():Observable<Assignment[]>{
+    return this.http.get<Assignment[]>(this.uri+"/np");
+  }
   getAssignmentsPagine(page:number,limit:number):Observable<any>{
     return this.http.get<Assignment[]>(this.uri+"?page="+page+"&limit="+limit);
   }
  
   getAssignment(id:number): Observable<Assignment> {
-    console.log(id + "id serv");
+    console.log(id + " id serv");
     return this.http.get<Assignment>(this.uri+"/"+id)
     .pipe(
       map(a => {
+        console.log(a.nom+ " SERVICE A NOM");
         return a;
       }),
       catchError(this.handleError<any>('### catchError: getAssignmentByID avec id='+id))
