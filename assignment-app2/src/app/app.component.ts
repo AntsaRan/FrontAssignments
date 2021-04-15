@@ -20,7 +20,9 @@ export class AppComponent {
   ngOnInit(): void {
     console.log(this.authService.currentUserValue + " APPP CON");
     const iduser = localStorage.getItem('currentUser');
-    this.username = localStorage.getItem('username').replace(/['"]+/g, '');
+    if( this.username){
+      this.username = localStorage.getItem('username').replace(/['"]+/g, '');
+    }
 
     console.log(this.username);
     const idToken = localStorage.getItem('currentToken');
