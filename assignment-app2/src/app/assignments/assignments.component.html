@@ -152,18 +152,18 @@
                 <mat-list *ngFor="let item of assignmentsScroll">
                     <mat-card>
                         <div class="row">
-                            <div class="col-md-3 occupation-professor-publication">
-                                <h3 class="subtitle-professor-publication">{{item.id_matiere.nom}}</h3>
+                            <div class="col-md-3 ">
+                                <h3>{{item.id_matiere.nom}}</h3>
                             </div>
                             <div class="col-md-9">
-                                <div class="col-md-4 content-professor-publication">
+                                <div class="col-md-4">
                                     <p style="font-weight: bold;"> Titre du devoir:</p> {{item.nom}}
                                 </div>
-                                <div class="col-md-4 content-professor-publication">
+                                <div class="col-md-4">
                                     <p style="font-weight: bold;"> Elève:</p>
                                     <p> {{item.id_eleve.nom}} {{item.id_eleve.prenom}}</p>
                                 </div>
-                                <div class="col-md-4 content-professor-publication">
+                                <div class="col-md-4">
                                     <p *ngIf="item.note" style="font-weight: bold;"> Note du devoir:</p>
                                     {{item.note}}/20
                                 </div>
