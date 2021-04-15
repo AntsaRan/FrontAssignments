@@ -15,6 +15,7 @@ export class ElevesService {
   eleves: Eleve[];
   constructor(private http: HttpClient) { }
   uri = "  https://api-assingments.herokuapp.com/api/eleve";
+  uriSimple = "  https://api-assingments.herokuapp.com/api/eleveList";
 
   addEleve(nouvelEleve: Eleve) {
     nouvelEleve.id = this.generateId();
@@ -25,7 +26,7 @@ export class ElevesService {
     return this.http.delete(this.uri+'/'+elevetransmis._id);
   }
   getEleves(): Observable<Eleve[]> {
-    return this.http.get<Eleve[]>(this.uri);
+    return this.http.get<Eleve[]>(this.uriSimple);
   }
   getElevesPagine(page: number, limit: number): Observable<any> {
     return this.http.get<Eleve[]>(this.uri + "?page=" + page + "&limit=" + limit);
