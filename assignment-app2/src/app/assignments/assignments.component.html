@@ -55,7 +55,10 @@
                                                         </ng-template>
                                                         <td>{{a.id_eleve.nom}}</td>
                                                         <td>{{a.id_matiere.nom}}</td>
-                                                        <td *ngIf="a.rendu">{{a.note}}/20</td>
+                                                        <td *ngIf="a.rendu;else nonote">{{a.note}}/20</td>
+                                                        <ng-template #nonote>
+                                                            <td appNonRendu class="center">Non noté</td>
+                                                        </ng-template>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -157,10 +160,12 @@
                                     <p style="font-weight: bold;"> Titre du devoir:</p> {{item.nom}}
                                 </div>
                                 <div class="col-md-4 content-professor-publication">
-                                    <p style="font-weight: bold;"> Elève:</p><p> {{item.id_eleve.nom}} {{item.id_eleve.prenom}}</p>
+                                    <p style="font-weight: bold;"> Elève:</p>
+                                    <p> {{item.id_eleve.nom}} {{item.id_eleve.prenom}}</p>
                                 </div>
                                 <div class="col-md-4 content-professor-publication">
-                                    <p *ngIf="item.note" style="font-weight: bold;"> Note du devoir:</p> {{item.note}}/20
+                                    <p *ngIf="item.note" style="font-weight: bold;"> Note du devoir:</p>
+                                    {{item.note}}/20
                                 </div>
                             </div>
                         </div>

@@ -87,6 +87,10 @@ export class AddAssignmentComponent implements OnInit {
     nouvelAssignment.rendu = false;
     nouvelAssignment.id_eleve = this.secondFormGroup.value["ideleve"];
     nouvelAssignment.id_matiere = this.secondFormGroup.value["idmatiere"];
+    if (this.thirdFormGroup.value["note"]>20 ||this.thirdFormGroup.value["note"]<0) {
+      this.error = "La note est invalide";
+      return;
+    }
     nouvelAssignment.note = this.thirdFormGroup.value["note"];
     nouvelAssignment.remarque = this.thirdFormGroup.value["remarque"];
     this.assignmentsService.addAssignment(nouvelAssignment)

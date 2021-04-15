@@ -20,7 +20,7 @@ export class ElevesService {
   addEleve(nouvelEleve: Eleve) {
     nouvelEleve.id = this.generateId();
     return this.http.post(this.uri, nouvelEleve);
-  }
+  } 
 
   deleteEleve(elevetransmis:Eleve):Observable<any>{
     return this.http.delete(this.uri+'/'+elevetransmis._id);

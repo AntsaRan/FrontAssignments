@@ -298,6 +298,8 @@ export class AssignmentsComponent implements OnInit {
               console.log(m);
               this.reloadComponent();
             })
+        }else{
+          this.reloadComponent();
         }
       }
     );
@@ -309,7 +311,6 @@ export class AssignmentsComponent implements OnInit {
     const dialogRef = this.dialog.open(AnnulationRenduComponent);
     dialogRef.afterClosed().subscribe(
       data => {
-        if (data) {
           assignment.note = null;
           assignment.rendu = false;
           this.assignmentsService.updateAssignment(assignment)
@@ -317,7 +318,7 @@ export class AssignmentsComponent implements OnInit {
               console.log(m);
               this.reloadComponent();
             })
-        }
+        
       }
     );
   }
