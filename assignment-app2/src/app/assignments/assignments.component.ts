@@ -297,7 +297,7 @@ export class AssignmentsComponent implements OnInit {
             })
             return ;
         } else {
-          this.reloadComponent();
+          this.router.navigate(["/home"],{replaceUrl:true});
         }
       }
     );
@@ -314,7 +314,7 @@ export class AssignmentsComponent implements OnInit {
         this.assignmentsService.updateAssignment(assignment)
           .subscribe(m => {
             console.log(m);
-            this.reloadComponent();
+            this.router.navigate(["/home"],{replaceUrl:true});
           })
 
       }
